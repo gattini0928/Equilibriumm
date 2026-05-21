@@ -110,6 +110,7 @@ type Remedy struct {
 type Agenda struct {
 	ID             int
 	ProfessionalID int
+	ProfessionalRole string
 	PatientID 		int
 	PatientName    string
 	Day            int  

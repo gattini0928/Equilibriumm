@@ -4,18 +4,19 @@ import (
 	"errors"
 )
 
-func (r *UserRepository) DeleteAgenda(userID int, agendaID int) error {
+func (r *UserRepository) DeleteAgenda(professionalID int, agendaID int, professionalRole string) error {
 	query := `
 		DELETE FROM agendas a
 		WHERE a.id = $1
 		AND a.professional_id = $2
+		AND a.professional_role = $3
 		AND a.reserved = false
 		AND NOT EXISTS(
 			SELECT 1 FROM consultations c
 			WHERE c.agenda_id = a.id
 		)
 	`
-	res, err := r.DB.Exec(query, agendaID, userID)
+	res, err := r.DB.Exec(query, agendaID, professionalID, professionalRole)
 	if err != nil {
 		return err
 	}

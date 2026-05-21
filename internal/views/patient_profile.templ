@@ -1,8 +1,8 @@
 package views
 
 import (
-    "fmt"
-    "github.com/gattini0928/Equilibrium/internal/models"
+  "fmt"
+  "github.com/gattini0928/Equilibrium/internal/models"
 )
 
 templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
@@ -73,7 +73,7 @@ templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
           } else {
             <h3>Terapeuta - Dr. {p.Therapist.Name}</h3>
             <img src={p.Therapist.Image} alt="Foto de perfil do terapeuta" />
-            <a href="/me/therapist" class="therapist-link">Ver Agenda</a>
+            <a href={ templ.URL(fmt.Sprintf("/therapists/id/%d", p.Therapist.ID)) } class="therapist-link">Ver Agenda</a>
           }
         </div>
 
@@ -85,7 +85,7 @@ templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
           } else {
             <h3>Psiquiatra - Dr. {p.Psychiatrist.Name}</h3>
             <img src={p.Psychiatrist.Image} alt="Foto de perfil do psiquiatra" />
-            <a href="/me/psychiatrist" class="therapist-link">Ver Agenda</a>
+            <a href={ templ.URL(fmt.Sprintf("/psychiatrists/id/%d", p.Psychiatrist.ID)) } class="psychiatrist-link">Ver Agenda</a>
           }
         </div>
 

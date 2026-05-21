@@ -221,7 +221,7 @@ func (s *UserService) TherapistDetail(userID int) (models.DoctorWithUser, []mode
 		return models.DoctorWithUser{}, nil, err
 	}
 
-	agendas, err := s.Repo.GetTherapistAgenda(therapist.ID)
+	agendas, err := s.Repo.GetTherapistAgenda(therapist.ID, "therapist")
 	if err != nil {
 		return models.DoctorWithUser{}, nil, err
 	}
@@ -237,7 +237,7 @@ func (s *UserService) PsychiatristDetail(userID int) (models.DoctorWithUser, []m
 		return models.DoctorWithUser{}, nil, err
 	}
 
-	agendas, err := s.Repo.GetTherapistAgenda(psychiatrist.ID)
+	agendas, err := s.Repo.GetPsychiatristAgenda(psychiatrist.ID, "psychiatrist")
 	if err != nil {
 		return models.DoctorWithUser{}, nil, err
 	}
@@ -328,15 +328,18 @@ func (s *UserService) AddAgenda(userID int, day int, month int, hour string) (mo
 	}
 
 	var professionalID int
+	var professionalRole string
 
 	switch user.Role {
 	case "therapist":
 		professionalID, err = s.Repo.GetTherapistIDByUserID(userID)
+		professionalRole = "therapist"
 		if err != nil {
 			return models.Agenda{}, err
 		}
 	case "psychiatrist":
 		professionalID, err = s.Repo.GetPsychiatristIDByUserID(userID)
+		professionalRole = "psychiatrist"
 		if err != nil {
 			return models.Agenda{}, err
 		}
@@ -344,7 +347,7 @@ func (s *UserService) AddAgenda(userID int, day int, month int, hour string) (mo
 		return models.Agenda{}, errors.New("forbidden")
 	}
 
-	return s.Repo.InsertAgenda(professionalID, day, month, hour)
+	return s.Repo.InsertAgenda(professionalID, professionalRole, day, month, hour)
 }
 
 func (s *UserService) RemoveAgenda(userID int, agendaID int) error {
@@ -354,12 +357,15 @@ func (s *UserService) RemoveAgenda(userID int, agendaID int) error {
 	}
 
 	var professionalID int
+	var professionalRole string
 
 	switch user.Role {
 	case "therapist":
 		professionalID, err = s.Repo.GetTherapistIDByUserID(userID)
+		professionalRole = "therapist"
 	case "psychiatrist":
 		professionalID, err = s.Repo.GetPsychiatristIDByUserID(userID)
+		professionalRole = "psychiatrist"
 	default:
 		return errors.New("forbidden")
 	}
@@ -368,7 +374,7 @@ func (s *UserService) RemoveAgenda(userID int, agendaID int) error {
 		return err
 	}
 
-	return s.Repo.DeleteAgenda(agendaID, professionalID)
+	return s.Repo.DeleteAgenda(agendaID, professionalID, professionalRole)
 }
 
 func (s *UserService) RemoveAgendaPatient(userID int, agendaID int) error {
@@ -442,6 +448,8 @@ func (s *UserService) Perfil(userID int) (any, error) {
 		return nil, err
 	}
 
+	var professionalRole string
+
 	switch user.Role {
 	case "patient":
 
@@ -489,17 +497,20 @@ func (s *UserService) Perfil(userID int) (any, error) {
 		if err != nil {
 			return nil, err
 		}
-		agendas, err := s.Repo.GetTherapistPrivateAgenda(userID)
-		if err != nil {
-			return nil, err
-		}
-
-		agendasReserved, err := s.Repo.GetTherapistReservedAgendas(userID)
-		if err != nil {
-			return nil, err
-		}
 
 		therapistID, err := s.Repo.GetTherapistIDByUserID(userID)
+		if err != nil {
+			return nil, err
+		}
+
+		professionalRole = "therapist"
+
+		agendas, err := s.Repo.GetTherapistPrivateAgenda(therapistID, professionalRole)
+		if err != nil {
+			return nil, err
+		}
+
+		agendasReserved, err := s.Repo.GetTherapistReservedAgendas(userID, professionalRole)
 		if err != nil {
 			return nil, err
 		}
@@ -516,7 +527,7 @@ func (s *UserService) Perfil(userID int) (any, error) {
 
 		return models.DoctorDashboard{
 			Perfil: perfil,
-			Role: "doctor",
+			Role: "therapist",
 			Agendas: agendas,
 			AgendasReserved: agendasReserved,
 			Patients: patients,
@@ -528,17 +539,20 @@ func (s *UserService) Perfil(userID int) (any, error) {
 		if err != nil {
 			return nil, err
 		}
-		agendas, err := s.Repo.GetPsychiatristPrivateAgenda(userID)
-		if err != nil {
-			return nil, err
-		}
-
-		agendasReserved, err := s.Repo.GetPsychiatristReservedAgendas(userID)
-		if err != nil {
-			return nil, err
-		}
 
 		psychiatristID , err := s.Repo.GetPsychiatristIDByUserID(userID)
+		if err != nil {
+			return nil, err
+		}
+
+		professionalRole = "psychiatrist"
+
+		agendas, err := s.Repo.GetPsychiatristPrivateAgenda(psychiatristID, professionalRole)
+		if err != nil {
+			return nil, err
+		}
+
+		agendasReserved, err := s.Repo.GetPsychiatristReservedAgendas(userID, professionalRole)
 		if err != nil {
 			return nil, err
 		}
@@ -554,6 +568,7 @@ func (s *UserService) Perfil(userID int) (any, error) {
 		}
 		return models.DoctorDashboard{
 			Perfil: perfil,
+			Role: "psychiatrist",
 			Agendas: agendas,
 			AgendasReserved: agendasReserved,
 			Patients: patients,
@@ -765,7 +780,6 @@ func (s *UserService) ShowConsultationRoom(userID, consultationID int) (models.C
 		Consultation: c,
 	}, nil
 }
-
 
 func (s *UserService) SaveConsultationRemedy(userID, consultationID int, remedyName, remedyDosage string, remedyQuantity int) error {
 	c, err := s.Repo.GetConsultationByID(consultationID)

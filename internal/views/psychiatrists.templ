@@ -28,7 +28,11 @@ templ PsychiatristsPage(psychiatrists []models.DoctorWithUser, isAuth bool) {
                         <h3>Um pouco sobre mim</h3>
                         <p>{psychiatrist.Description}</p>
                     </div>
-                    <a href={ templ.URL(fmt.Sprintf("/psychiatrists/id/%d", psychiatrist.ID)) } class="psychiatrist-link">Ver Agenda</a>
+                    if !isAuth {
+                        <span>Faça login para ver agenda dos terapeuta.</span>
+                    } else {
+                        <a href={ templ.URL(fmt.Sprintf("/psychiatrists/id/%d", psychiatrist.ID)) } class="psychiatrist-link">Ver Agenda</a>
+                    }
                 </div>              
             }
         </div>

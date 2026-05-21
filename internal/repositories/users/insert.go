@@ -67,18 +67,19 @@ func (r *UserRepository) CreateUserWithProfile(
 	return tx.Commit()
 }
 
-func (r *UserRepository) InsertAgenda(userID int, day int, month int, hour string) (models.Agenda, error) {
+func (r *UserRepository) InsertAgenda(professionalID int, professionalRole string,day int, month int, hour string) (models.Agenda, error) {
 	var agenda models.Agenda
 
 	query := `
-		INSERT INTO agendas (professional_id, day, month, hour, reserved)
-		VALUES ($1, $2, $3, $4, false)
-		RETURNING id, professional_id, day, month, hour, reserved;
+		INSERT INTO agendas (professional_id, professional_role, day, month, hour, reserved)
+		VALUES ($1, $2, $3, $4, $5, false)
+		RETURNING id, professional_id, professional_role, day, month, hour, reserved;
 	`
 
-	err := r.DB.QueryRow(query, userID, day, month, hour).Scan(
+	err := r.DB.QueryRow(query, professionalID, professionalRole, day, month, hour).Scan(
 		&agenda.ID,
 		&agenda.ProfessionalID,
+		&agenda.ProfessionalRole,
 		&agenda.Day,
 		&agenda.Month,
 		&agenda.Hour,

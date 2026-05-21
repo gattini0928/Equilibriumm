@@ -65,8 +65,10 @@ func UserRoutes(mux *http.ServeMux, h *handlerUsers.UserHandler, secret []byte) 
 	)
 
 	// DETALHES(Clique no card)
-	mux.HandleFunc("GET /therapists/id/{id}", h.HandleTherapistDetail)
-	mux.HandleFunc("GET /psychiatrists/id/{id}", h.HandlePsychiatristDetail)
+	mux.Handle("GET /therapists/id/{id}",
+		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleTherapistDetail)))
+	mux.Handle("GET /psychiatrists/id/{id}", 
+		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandlePsychiatristDetail)))
 
 	mux.Handle("POST /therapists/{therapist_id}/agendas/{agenda_id}/reserve", 
 		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleReserveTherapistAgenda)))

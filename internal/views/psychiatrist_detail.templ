@@ -1,6 +1,8 @@
 package views
 
-import "github.com/gattini0928/Equilibrium/internal/models"
+import ("fmt"
+    "github.com/gattini0928/Equilibrium/internal/models"
+)
 
 templ PsychiatristDetailPage(psychiatrist models.DoctorWithUser, agendas []models.Agenda, isAuth bool) {
     @Layout(psychiatrist.Name, isAuth) {
@@ -37,7 +39,9 @@ templ PsychiatristDetailPage(psychiatrist models.DoctorWithUser, agendas []model
                     for _, agenda := range agendas {
                         <div class="schedule-item">
                             <span class="date">{agenda.Day}/{agenda.Month} - {agenda.Hour}</span>
-                            <a href="#">Reservar Horário</a>
+                            <form method="POST" action={templ.URL(fmt.Sprintf("/psychiatrists/%d/agendas/%d/reserve", psychiatrist.ID, agenda.ID))}>
+                                <button type="submit">Reservar</button>
+                            </form>
                         </div>
                     }
                     <span class="price">R${psychiatrist.Price}</span>
