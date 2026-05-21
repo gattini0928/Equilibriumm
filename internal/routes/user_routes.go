@@ -98,6 +98,9 @@ func UserRoutes(mux *http.ServeMux, h *handlerUsers.UserHandler, secret []byte) 
 	// Desmarcar Consulta (Paciente)
 	mux.Handle("POST /me/agenda/patient/{agenda_id}",
 		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleDeleteAgendaPatient)))
+	// Desmarcar Consulta(Terapeuta ou Psiquiatra)
+	mux.Handle("POST /me/agenda/professional/{agenda_id}",
+		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleDeleteAgendaProfessional)))
 
 	mux.Handle("POST /me/price",
 		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleUpdatePrice)))

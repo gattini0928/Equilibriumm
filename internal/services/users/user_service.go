@@ -386,7 +386,36 @@ func (s *UserService) RemoveAgendaPatient(userID int, agendaID int) error {
 		return err
 	}
 
-	return s.Repo.UnreserveAgenda(agendaID, patientID)
+	return s.Repo.UnreserveAgendaPatient(agendaID, patientID)
+}
+
+func (s *UserService) RemoveAgendaProfessional(userID int, agendaID int) error {
+	user, err := s.Repo.GetUserByID(userID)
+	if err != nil {
+		return err
+	}
+
+	if user.Role != "therapist" && user.Role != "psychiatrist" {
+		return errors.New("forbidden")
+	}
+
+	var professionalID int
+
+	if user.Role == "therapist" {
+		professionalID, err = s.Repo.GetTherapistIDByUserID(userID)
+		if err != nil {
+			return err
+		}	
+	}
+
+	if user.Role == "psychiatrist" {
+		professionalID, err = s.Repo.GetPsychiatristIDByUserID(userID)
+		if err != nil {
+			return err
+		}
+	}
+
+	return s.Repo.UnreserveAgendaProfessional(agendaID, professionalID)
 }
 
 func (s *UserService) UpdatePrice(userID int, price float64) error {

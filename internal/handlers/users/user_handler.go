@@ -777,6 +777,27 @@ func (h *UserHandler) HandleDeleteAgendaPatient(w http.ResponseWriter, r *http.R
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
 }
 
+func (h *UserHandler) HandleDeleteAgendaProfessional(w http.ResponseWriter, r *http.Request) {
+	agendaID, err := utils.CheckID("agenda_id", r)
+	if err != nil {
+		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
+		return 
+	}
+
+	userID, ok := utils.CheckJWT(w, r.Context())
+	if !ok {
+		return
+	}
+
+	err = h.Service.RemoveAgendaProfessional(userID, agendaID)
+	if err != nil {
+		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+		return 
+	}
+	
+	http.Redirect(w, r, "/me", http.StatusSeeOther)
+}
+
 func (h *UserHandler) HandleUpdatePrice(w http.ResponseWriter, r *http.Request) {
 	userID, ok := utils.CheckJWT(w, r.Context())
 	if !ok {
@@ -919,7 +940,7 @@ func (h *UserHandler) HandleStartConsultation(w http.ResponseWriter, r *http.Req
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 		return
 	}
-	
+
 	http.Redirect(w, r, fmt.Sprintf("/consultations/%d", consultationID), http.StatusSeeOther)
 }
 
