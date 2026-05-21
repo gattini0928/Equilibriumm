@@ -510,7 +510,7 @@ func (s *UserService) Perfil(userID int) (any, error) {
 			return nil, err
 		}
 
-		agendasReserved, err := s.Repo.GetTherapistReservedAgendas(userID, professionalRole)
+		agendasReserved, err := s.Repo.GetTherapistReservedAgendas(therapistID, professionalRole)
 		if err != nil {
 			return nil, err
 		}
@@ -552,7 +552,7 @@ func (s *UserService) Perfil(userID int) (any, error) {
 			return nil, err
 		}
 
-		agendasReserved, err := s.Repo.GetPsychiatristReservedAgendas(userID, professionalRole)
+		agendasReserved, err := s.Repo.GetPsychiatristReservedAgendas(psychiatristID, professionalRole)
 		if err != nil {
 			return nil, err
 		}

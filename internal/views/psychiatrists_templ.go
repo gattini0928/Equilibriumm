@@ -144,7 +144,7 @@ func PsychiatristsPage(psychiatrists []models.DoctorWithUser, isAuth bool) templ
 					return templ_7745c5c3_Err
 				}
 				if !isAuth {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<span>Faça login para ver agenda dos terapeuta.</span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<span>Faça login para ver a agenda do psiquiatra.</span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

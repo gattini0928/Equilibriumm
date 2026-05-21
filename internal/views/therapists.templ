@@ -29,9 +29,11 @@ templ TherapistsPage(therapists []models.DoctorWithUser, isAuth bool) {
                         <p>{therapist.Description}</p>
                     </div>
                     if !isAuth {
-                        <span>Faça login para ver agenda dos terapeuta.</span>
+                        <span>Faça login para ver a agenda do terapeuta.</span>
                     } else {
-                        <a href={ templ.URL(fmt.Sprintf("/therapists/id/%d", therapist.ID)) } class="therapist-link">Ver Agenda</a>
+                        <a href={ templ.URL(fmt.Sprintf("/therapists/id/%d", therapist.ID)) } class="therapist-link">
+                            Ver Agenda
+                        </a>
                     }
                 </div>              
             }

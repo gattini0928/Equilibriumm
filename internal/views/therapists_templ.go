@@ -144,7 +144,7 @@ func TherapistsPage(therapists []models.DoctorWithUser, isAuth bool) templ.Compo
 					return templ_7745c5c3_Err
 				}
 				if !isAuth {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<span>Faça login para ver agenda dos terapeuta.</span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<span>Faça login para ver a agenda do terapeuta.</span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
