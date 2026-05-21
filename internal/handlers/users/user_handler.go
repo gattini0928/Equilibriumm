@@ -919,9 +919,7 @@ func (h *UserHandler) HandleStartConsultation(w http.ResponseWriter, r *http.Req
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 		return
 	}
-	log.Println("CHAMOU START")
-	log.Println("consultationID criado:", consultationID)
-	log.Println("redirect:", fmt.Sprintf("/consultations/%d", consultationID))
+	
 	http.Redirect(w, r, fmt.Sprintf("/consultations/%d", consultationID), http.StatusSeeOther)
 }
 

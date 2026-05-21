@@ -1181,19 +1181,53 @@ func (r *UserRepository) GetConsultationByID(consultationID int) (models.Consult
 	var c models.Consultation
 
 	err := r.DB.QueryRow(`
-		SELECT id, patient_id, therapist_id, psychiatrist_id, date, price, annotation, diagnosis
-		FROM consultations
-		WHERE id = $1
+		SELECT 
+			c.id,
+			c.patient_id,
+			pu.name,
+
+			c.therapist_id,
+			c.psychiatrist_id,
+
+			COALESCE(tu.name, psu.name) AS doctor_name,
+
+			CASE
+				WHEN c.therapist_id IS NOT NULL THEN 'therapist'
+				WHEN c.psychiatrist_id IS NOT NULL THEN 'psychiatrist'
+			END AS doctor_role,
+
+			c.date,
+			c.price,
+			c.annotation,
+			c.diagnosis
+		FROM consultations c
+		JOIN patients p ON p.id = c.patient_id
+		JOIN users pu ON pu.id = p.user_id
+
+		LEFT JOIN therapists t ON t.id = c.therapist_id
+		LEFT JOIN users tu ON tu.id = t.user_id
+
+		LEFT JOIN psychiatrists ps ON ps.id = c.psychiatrist_id
+		LEFT JOIN users psu ON psu.id = ps.user_id
+
+		WHERE c.id = $1
 	`, consultationID).Scan(
 		&c.ID,
 		&c.PatientID,
+		&c.PatientName,
+
 		&c.TherapistID,
 		&c.PsychiatristID,
+
+		&c.DoctorName,
+		&c.DoctorRole,
+
 		&c.Date,
 		&c.Price,
 		&c.Annotation,
 		&c.Diagnosis,
 	)
+	
 	if err != nil {
 		return models.Consultation{}, err
 	}
