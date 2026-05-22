@@ -3,7 +3,7 @@ package users
 import (
 	"database/sql"
 	"errors"
-
+	"time"
 	"github.com/gattini0928/Equilibrium/internal/models"
 )
 
@@ -67,22 +67,20 @@ func (r *UserRepository) CreateUserWithProfile(
 	return tx.Commit()
 }
 
-func (r *UserRepository) InsertAgenda(professionalID int, professionalRole string,day int, month int, hour string) (models.Agenda, error) {
+func (r *UserRepository) InsertAgenda(professionalID int, professionalRole string, date time.Time) (models.Agenda, error) {
 	var agenda models.Agenda
 
 	query := `
-		INSERT INTO agendas (professional_id, professional_role, day, month, hour, reserved)
+		INSERT INTO agendas (professional_id, professional_role, date, reserved)
 		VALUES ($1, $2, $3, $4, $5, false)
-		RETURNING id, professional_id, professional_role, day, month, hour, reserved;
+		RETURNING id, professional_id, professional_role, date, reserved;
 	`
 
-	err := r.DB.QueryRow(query, professionalID, professionalRole, day, month, hour).Scan(
+	err := r.DB.QueryRow(query, professionalID, professionalRole, date).Scan(
 		&agenda.ID,
 		&agenda.ProfessionalID,
 		&agenda.ProfessionalRole,
-		&agenda.Day,
-		&agenda.Month,
-		&agenda.Hour,
+		&agenda.Date,
 		&agenda.Reserved,
 	)
 

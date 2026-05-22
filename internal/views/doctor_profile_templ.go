@@ -171,20 +171,20 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</span><form method=\"POST\" action=\"/me/agenda\"><input type=\"number\" name=\"day\" placeholder=\"Dia\"> <input type=\"number\" name=\"month\" placeholder=\"Mês\"> <input type=\"text\" name=\"hour\" placeholder=\"09:00\"> <button type=\"submit\">Adicionar Agenda</button></form><div class=\"price-container\"><span class=\"price\">R$")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</span><form method=\"POST\" action=\"/me/agenda\"><input type=\"date\" name=\"date\" placeholder=\"Data\" required> <input type=\"time\" name=\"hour\" placeholder=\"09:00\" required> <button type=\"submit\">Adicionar Agenda</button></form><div class=\"price-container\"><span class=\"price\">R$")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var11 string
 				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%.2f", p.Perfil.Price))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 46, Col: 70}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 45, Col: 70}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</span><form method=\"POST\" action=\"/me/price\"><input type=\"number\" step=\"0.01\" name=\"price\" placeholder=\"Preço da Consulta\"> <button type=\"submit\">Atualizar Preço</button></form></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</span><form method=\"POST\" action=\"/me/price\"><input type=\"number\" step=\"0.01\" name=\"price\" placeholder=\"Preço da Consulta\" required> <button type=\"submit\">Atualizar Preço</button></form></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -194,27 +194,27 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 					return templ_7745c5c3_Err
 				}
 				for _, agenda := range p.Agendas {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<div class=\"schedule-list\"><div class=\"schedule-item\"><span class=\"date\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<div class=\"schedule-list\"><div class=\"schedule-item\"><span class=\"date\"><span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var12 string
-					templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%02d/%02d - %s", agenda.Day, agenda.Month, agenda.Hour))
+					templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(agenda.Date.Format("02/01/2006 15:04"))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 61, Col: 87}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 60, Col: 63}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</span><form method=\"POST\" action=\"")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</span></span><form method=\"POST\" action=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var13 templ.SafeURL
 					templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/me/agenda/%d", agenda.ID)))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 63, Col: 95}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 62, Col: 95}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 					if templ_7745c5c3_Err != nil {
@@ -225,14 +225,14 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 						return templ_7745c5c3_Err
 					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<form method=\"POST\" action=\"/me/agenda\"><input type=\"number\" name=\"day\" placeholder=\"Dia\"> <input type=\"number\" name=\"month\" placeholder=\"Mês\"> <input type=\"text\" name=\"hour\" placeholder=\"09:00\"> <button type=\"submit\">Adicionar Agenda</button></form><div class=\"price-container\"><span class=\"price\">R$")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<form method=\"POST\" action=\"/me/agenda\"><input type=\"date\" name=\"date\" placeholder=\"Data\" required> <input type=\"time\" name=\"hour\" placeholder=\"09:00\" required> <button type=\"submit\">Adicionar Agenda</button></form><div class=\"price-container\"><span class=\"price\">R$")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var14 string
 				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%.2f", p.Perfil.Price))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 78, Col: 70}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 76, Col: 70}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 				if templ_7745c5c3_Err != nil {
@@ -255,7 +255,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 				var templ_7745c5c3_Var15 string
 				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(data.Messages["reserved_agendas"])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 90, Col: 50}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 88, Col: 50}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 				if templ_7745c5c3_Err != nil {
@@ -267,27 +267,27 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 				}
 			} else {
 				for _, agenda := range p.AgendasReserved {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<div class=\"schedule-list\"><div class=\"schedule-item\"><span class=\"date\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<div class=\"schedule-list\"><div class=\"schedule-item\"><span class=\"date\"><span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var16 string
-					templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%02d/%02d - %s", agenda.Day, agenda.Month, agenda.Hour))
+					templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(agenda.Date.Format("02/01/2006 15:04"))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 96, Col: 87}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 94, Col: 63}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</span> <span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</span></span> <span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var17 string
 					templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(agenda.PatientName)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 98, Col: 41}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 96, Col: 41}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 					if templ_7745c5c3_Err != nil {
@@ -300,7 +300,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 					var templ_7745c5c3_Var18 templ.SafeURL
 					templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/from-agenda/%d/start", agenda.ID)))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 99, Col: 117}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 97, Col: 117}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 					if templ_7745c5c3_Err != nil {
@@ -313,7 +313,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 					var templ_7745c5c3_Var19 templ.SafeURL
 					templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/me/agenda/professional/%d", agenda.ID)))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 102, Col: 108}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 100, Col: 108}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 					if templ_7745c5c3_Err != nil {
@@ -337,7 +337,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 				var templ_7745c5c3_Var20 string
 				templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(data.Messages["patients"])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 114, Col: 42}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 112, Col: 42}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 				if templ_7745c5c3_Err != nil {
@@ -356,7 +356,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 					var templ_7745c5c3_Var21 string
 					templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(patient.Image)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 119, Col: 39}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 117, Col: 39}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 					if templ_7745c5c3_Err != nil {
@@ -369,7 +369,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 					var templ_7745c5c3_Var22 string
 					templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(patient.Name)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 120, Col: 35}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 118, Col: 35}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 					if templ_7745c5c3_Err != nil {
@@ -382,7 +382,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 					var templ_7745c5c3_Var23 templ.SafeURL
 					templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/patient/%d", patient.ID)))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 122, Col: 73}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 120, Col: 73}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 					if templ_7745c5c3_Err != nil {
@@ -406,7 +406,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 				var templ_7745c5c3_Var24 string
 				templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(data.Messages["consultations"])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 131, Col: 47}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 129, Col: 47}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 				if templ_7745c5c3_Err != nil {
@@ -425,7 +425,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 					var templ_7745c5c3_Var25 string
 					templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(consultation.PatientName)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 135, Col: 45}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 133, Col: 45}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 					if templ_7745c5c3_Err != nil {
@@ -438,7 +438,7 @@ func DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) templ.C
 					var templ_7745c5c3_Var26 string
 					templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(consultation.Date.Format("02/01/2006 15:04"))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 136, Col: 65}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_profile.templ`, Line: 134, Col: 65}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 					if templ_7745c5c3_Err != nil {

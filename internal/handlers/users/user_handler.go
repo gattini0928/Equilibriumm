@@ -704,28 +704,22 @@ func (h *UserHandler) HandleAddAgenda(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := r.ParseForm()
-	if err != nil {
-		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
-		return
-	}
+	dateStr := r.FormValue("date")
 
-	var day int
-	day, err = strconv.Atoi(r.FormValue("day"))
+	date, err := time.Parse("2006-01-02", dateStr)
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
 		return
 	}
-
-	var month int
-	month, err = strconv.Atoi(r.FormValue("month"))
-	if err != nil {
-		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
-		return
-	}
+	
 	hour := r.FormValue("hour")
+	err = validators.ValidateHour(hour)
+	if err != nil {
+		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
+		return
+	}
 
-	_, err = h.Service.AddAgenda(userID, day, month, hour)
+	_, err = h.Service.AddAgenda(userID, date)
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError,)
 		return

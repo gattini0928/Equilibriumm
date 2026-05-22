@@ -113,9 +113,7 @@ type Agenda struct {
 	ProfessionalRole string
 	PatientID 		int
 	PatientName    string
-	Day            int  
-	Month          int 
-	Hour           string
+	Date time.Time
 	Reserved       bool  
 }
 

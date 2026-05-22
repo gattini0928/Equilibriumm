@@ -2,6 +2,7 @@ package users
 
 import (
 	"errors"
+	"time"
 
 	"github.com/gattini0928/Equilibrium/internal/configs"
 	"github.com/gattini0928/Equilibrium/internal/models"
@@ -321,7 +322,7 @@ func (s *UserService) ListMyPatients(userID int) ([]models.PatientWithUser, erro
 }
 
 // Funções para agenda e preço
-func (s *UserService) AddAgenda(userID int, day int, month int, hour string) (models.Agenda, error) {
+func (s *UserService) AddAgenda(userID int, date time.Time) (models.Agenda, error) {
 	user, err := s.Repo.GetUserByID(userID)
 	if err != nil {
 		return models.Agenda{}, err
@@ -347,7 +348,7 @@ func (s *UserService) AddAgenda(userID int, day int, month int, hour string) (mo
 		return models.Agenda{}, errors.New("forbidden")
 	}
 
-	return s.Repo.InsertAgenda(professionalID, professionalRole, day, month, hour)
+	return s.Repo.InsertAgenda(professionalID, professionalRole, date)
 }
 
 func (s *UserService) RemoveAgenda(userID int, agendaID int) error {

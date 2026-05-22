@@ -135,20 +135,20 @@ func PatientProfilePage(data models.PerfilView, p models.PatientDashboard) templ
 				}
 			} else {
 				for _, agenda := range p.AgendasReserved {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"schedule-list\"><div class=\"schedule-item\"><span class=\"date\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"schedule-list\"><div class=\"schedule-item\"><span class=\"date\"><span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var9 string
-					templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%02d/%02d - %s", agenda.Day, agenda.Month, agenda.Hour))
+					templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(agenda.Date.Format("02/01/2006 15:04"))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/patient_profile.templ`, Line: 31, Col: 89}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/patient_profile.templ`, Line: 31, Col: 65}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "</span><form method=\"POST\" action=\"")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "</span></span><form method=\"POST\" action=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

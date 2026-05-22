@@ -39,7 +39,7 @@ templ TherapistDetailPage(therapist models.DoctorWithUser, agendas []models.Agen
                 for _, agenda := range agendas {
                     <div class="schedule-item">
                         <span class="date">
-                            {agenda.Day}/{agenda.Month} - {agenda.Hour}
+                            {agenda.Date.Format("02/01/2006 15:04")}
                         </span>
                         <form method="POST" action={templ.URL(fmt.Sprintf("/therapists/%d/agendas/%d/reserve", therapist.ID, agenda.ID))}>
                             <button type="submit">Reservar</button>
