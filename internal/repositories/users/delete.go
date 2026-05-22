@@ -4,7 +4,7 @@ import (
 	"errors"
 )
 
-func (r *UserRepository) DeleteAgenda(professionalID int, agendaID int, professionalRole string) error {
+func (r *UserRepository) DeleteAgenda(agendaID int, professionalID int, professionalRole string) error {
 	query := `
 		DELETE FROM agendas a
 		WHERE a.id = $1

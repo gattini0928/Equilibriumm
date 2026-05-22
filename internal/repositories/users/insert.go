@@ -106,7 +106,7 @@ func (r *UserRepository) CreateTherapistConsultation(tx *sql.Tx,  patientID, the
 func (r *UserRepository) CreatePsychiatristConsultation(tx *sql.Tx, patientID, psychiatristID, agendaID int, price float64) (int, error) {
 	var consultationID int
 	query := `
-		INSERT INTO consultations (patient_id, psychiatrist_id, agenda_id, data, price)
+		INSERT INTO consultations (patient_id, psychiatrist_id, agenda_id, date, price)
 		VALUES ($1, $2, $3, NOW(), $4) RETURNING id
 		`
 	err := tx.QueryRow(query, patientID, psychiatristID, agendaID, price).Scan(&consultationID)
