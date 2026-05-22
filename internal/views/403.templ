@@ -1,0 +1,13 @@
+package views
+
+import "github.com/gattini0928/Equilibrium/internal/models"
+
+templ Status403Page(data models.StatusView) {
+    @Layout("Não Autorizado", data.IsAuth) {
+        <div class="status-container">
+            <h1>{data.StatusCode}</h1>
+            <p>{data.StatusMessage}</p>
+            <a href="/">Voltar ao início</a>
+        </div>
+    }
+}

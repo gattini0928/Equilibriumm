@@ -581,6 +581,16 @@ func (s *UserService) Perfil(userID int) (any, error) {
 }
 
 func (s *UserService) ReserveTherapistAgenda(patientUserID, therapistID, agendaID int) error {
+
+	user, err := s.Repo.GetUserByID(patientUserID)
+	if err != nil {
+		return err
+	}
+
+	if user.Role != "patient" {
+		return errors.New("forbidden")
+	}
+
 	patientID, err := s.Repo.GetPatientIDByUserID(patientUserID)
 	if err != nil {
 		return err

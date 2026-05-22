@@ -93,5 +93,8 @@ func RenderStatusPage(
 		data.StatusMessage = "Há um problema com o que você enviou"
 		w.WriteHeader(statusCode)
 		_ = views.Status400Page(data).Render(r.Context(), w)
+	case http.StatusForbidden:
+		data.StatusMessage = "Você não tem permissão para realizar essa ação"
+		_ = views.Status403Page(data).Render(r.Context(), w)
     }
 }

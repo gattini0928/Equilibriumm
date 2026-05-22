@@ -847,6 +847,10 @@ func (h *UserHandler) HandleReserveTherapistAgenda(w http.ResponseWriter, r *htt
 
 	err = h.Service.ReserveTherapistAgenda(userID, therapistID, agendaID)
 	if err != nil {
+		if err.Error() == "forbidden" {
+			utils.RenderStatusPage(w, r, err, http.StatusForbidden)
+			return
+		}
 		utils.RenderStatusPage(w, r ,err, http.StatusInternalServerError)
 		return
 	}
