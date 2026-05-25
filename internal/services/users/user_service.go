@@ -736,9 +736,14 @@ func (s *UserService) StartConsultation(userID, agendaID int) (int, error) {
 			tx,
 			agenda.PatientID,
 			agenda.ProfessionalID,
-			agenda.ID,
 			price,
 		)
+
+		if err != nil {
+			return 0, err
+		}
+
+		err = s.Repo.DeleteAgendaTX(tx, agenda.ID, agenda.ProfessionalID, agenda.ProfessionalRole)
 		if err != nil {
 			return 0, err
 		}
@@ -748,14 +753,18 @@ func (s *UserService) StartConsultation(userID, agendaID int) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-
 		consultationID, err = s.Repo.CreatePsychiatristConsultation(
 			tx,
 			agenda.PatientID,
 			agenda.ProfessionalID,
-			agenda.ID,
 			price,
 		)
+		if err != nil {
+			return 0, err
+		}
+
+		err = s.Repo.DeleteAgendaTX(tx, agenda.ID, agenda.ProfessionalID, agenda.ProfessionalRole)
+
 		if err != nil {
 			return 0, err
 		}
