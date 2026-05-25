@@ -72,7 +72,7 @@ func (r *UserRepository) InsertAgenda(professionalID int, professionalRole strin
 
 	query := `
 		INSERT INTO agendas (professional_id, professional_role, date, reserved)
-		VALUES ($1, $2, $3, $4, $5, false)
+		VALUES ($1, $2, $3, false)
 		RETURNING id, professional_id, professional_role, date, reserved;
 	`
 

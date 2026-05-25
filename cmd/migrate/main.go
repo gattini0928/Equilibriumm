@@ -73,7 +73,7 @@ func main() {
 			professional_id INTEGER,
 			professional_role TEXT NOT NULL CHECK (professional_role IN ('therapist', 'psychiatrist')),
 			patient_id INTEGER,
-			starts_at TIMESTAMP NOT NULL, 
+			date TIMESTAMP NOT NULL, 
 			reserved BOOLEAN
 		);
 
