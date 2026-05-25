@@ -6,7 +6,7 @@ import (
     )
 
 templ TherapistsPage(therapists []models.DoctorWithUser, isAuth bool) {
-    @Layout("Terapeutas", isAuth) {
+    @Layout("Terapeutas", isAuth, []string{"doctors.css"}) {
     <main class="doctors-page">
         <h2>Nossos Terapeutas</h2>                                  
         if len(therapists) == 0 {

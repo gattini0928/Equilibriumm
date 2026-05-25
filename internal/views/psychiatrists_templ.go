@@ -178,7 +178,7 @@ func PsychiatristsPage(psychiatrists []models.DoctorWithUser, isAuth bool) templ
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = Layout("Psiquiatras", isAuth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Layout("Psiquiatras", isAuth, []string{"doctors.css"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

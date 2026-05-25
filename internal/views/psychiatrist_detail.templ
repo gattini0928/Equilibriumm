@@ -5,7 +5,7 @@ import ("fmt"
 )
 
 templ PsychiatristDetailPage(psychiatrist models.DoctorWithUser, agendas []models.Agenda, isAuth bool) {
-    @Layout(psychiatrist.Name, isAuth) {
+    @Layout(psychiatrist.Name, isAuth, []string{"doctor_detail.css"}) {
     <main class="doctor-detail-page">
         <section class="card doctor-card">
         <img 

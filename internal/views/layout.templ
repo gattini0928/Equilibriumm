@@ -1,6 +1,6 @@
 package views
 
-templ Layout(title string, isAuth bool) {
+templ Layout(title string, isAuth bool, cssFiles []string) {
   <html>
     <head>
       <title>{ title }</title>
@@ -10,12 +10,10 @@ templ Layout(title string, isAuth bool) {
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
       <link rel="stylesheet" href="/static/css/base.css">
-      <link rel="stylesheet" href="/static/css/homepage.css">
       <link rel="stylesheet" href="/static/css/forms.css">
-      <link rel="stylesheet" href="/static/css/doctor_detail.css">
-      <link rel="stylesheet" href="/static/css/doctors.css">
-      <link rel="stylesheet" href="/static/css/profile.css">
-      <link rel="stylesheet" href="/static/css/patient_detail.css">
+      for _, css := range cssFiles {
+        <link rel="stylesheet" href={ "/static/css/" + css }>
+      }
     </head>
     <body>
       <header>

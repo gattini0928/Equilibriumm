@@ -3,7 +3,7 @@ package views
 import "github.com/gattini0928/Equilibrium/internal/models"
 
 templ Status400Page(data models.StatusView) {
-    @Layout("Recurso Incorreto", data.IsAuth) {
+    @Layout("Recurso Incorreto", data.IsAuth, []string{}) {
         <div class="status-container">
             <h1>{data.StatusCode}</h1>
             <p>{data.StatusMessage}</p>

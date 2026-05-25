@@ -3,7 +3,7 @@ package views
 import "github.com/gattini0928/Equilibrium/internal/models"
 
 templ LoginPage(data models.LoginView) {
-    @Layout("Login", data.IsAuth) {
+    @Layout("Login", data.IsAuth, []string{}) {
     if data.Msg != "" {
         <div class="message"> {data.Msg} </div>
     }

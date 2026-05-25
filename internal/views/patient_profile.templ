@@ -6,7 +6,7 @@ import (
 )
 
 templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
-  @Layout("Perfil", data.IsAuth) {
+  @Layout("Perfil", data.IsAuth, []string{"profile.css"}) {
     <main class="patient-profile-page">
       <section class="grid">
 
@@ -59,7 +59,7 @@ templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
 
                 <span>{consultation.Date.Format("02/01/2006 15:04")}</span>
 
-                <a href="#">Ver Detalhes</a>
+                <a href={ templ.URL(fmt.Sprintf("consultations/consultation-detail/%d", consultation.ID)) }>Ver Detalhes</a>
               </div>
             }
           }

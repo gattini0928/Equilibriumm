@@ -24,7 +24,7 @@ import (
 
 func (h *UserHandler) HandleHome(w http.ResponseWriter, r *http.Request) {
     isAuth := middleware.IsAuthenticated(r)
-	_ = views.IndexPage(isAuth).Render(r.Context(), w)
+	_ = views.HomepagePage(isAuth).Render(r.Context(), w)
 }
 
 func (h *UserHandler) HandleSignup(w http.ResponseWriter, r *http.Request) {
@@ -894,7 +894,7 @@ func (h *UserHandler) HandleReservePsychiatristAgenda(w http.ResponseWriter, r *
 func (h *UserHandler) HandleConsultationDetail(w http.ResponseWriter, r *http.Request) {
 	consultationID, err := utils.CheckID("consultation_id", r)
 	if err != nil {
-		utils.WriteError(w, http.StatusBadRequest, err)
+		utils.RenderStatusPage(w, r, err ,http.StatusBadRequest)
 		return
 	}
 
@@ -905,11 +905,12 @@ func (h *UserHandler) HandleConsultationDetail(w http.ResponseWriter, r *http.Re
 
 	consultation, err := h.Service.ShowConsultation(userID, consultationID)
 	if err != nil {
-		utils.WriteError(w, http.StatusForbidden, err)
+		utils.RenderStatusPage(w, r, err, http.StatusForbidden)
 		return
 	}
 
-	utils.WriteJSON(w, http.StatusOK, consultation)
+	isAuth := middleware.IsAuthenticated(r)
+	_ = views.ConsultationDetailPage(consultation, isAuth).Render(r.Context(), w)
 }
 
 func (h *UserHandler) HandleConsultation(w http.ResponseWriter, r *http.Request) {

@@ -3,7 +3,7 @@ package views
 import "github.com/gattini0928/Equilibrium/internal/models"
 
 templ CompletePsychiatristInfoPage(data models.PsychiatristView) {
-    @Layout("Completar Informações", data.IsAuth) {
+    @Layout("Completar Informações", data.IsAuth, []string{}) {
         <main class="form-page">
 
             if data.Msg != "" {

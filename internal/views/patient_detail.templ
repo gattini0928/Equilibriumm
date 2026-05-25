@@ -3,7 +3,7 @@ package views
 import "github.com/gattini0928/Equilibrium/internal/models"
 
 templ PatientDetailPage(patient models.PatientWithUser, isAuth bool) {
-    @Layout("Detalhe do Paciente", isAuth) {
+    @Layout("Detalhe do Paciente", isAuth, []string{"patient_detail.css"}) {
         <main class="patient-detail-page">
         <div class="card">
             <img src={patient.Image} />

@@ -1,0 +1,82 @@
+package views
+
+import "github.com/gattini0928/Equilibrium/internal/models"
+
+templ ConsultationDetailPage(consultation models.Consultation, isAuth bool) {
+    @Layout("Detalhes da Consulta", isAuth, []string{"consultation_detail.css"}) {
+        <main>
+            <div class="card">
+                <h2>Consulta</h2>
+
+                <div class="info">
+                    <span>
+                        <span class="label">Paciente:</span>
+                        {consultation.PatientName}
+                    </span>
+
+                    <span>
+                        <span class="label">Profissional:</span>
+                        {consultation.DoctorName}
+                    </span>
+
+                    <span>
+                        <span class="label">Data:</span>
+                        {consultation.Date.Format("02/01/2006 15:04")}
+                    </span>
+                </div>
+
+                <div class="section">
+                    <h3>Anotação</h3>
+
+                    if consultation.Annotation != "" {
+                        <p>{consultation.Annotation}</p>
+                    } else {
+                        <span>Nenhuma anotação adicionada.</span>
+                    }
+                </div>
+
+                if consultation.DoctorRole == "therapist" {
+                    <div class="section">
+                        <h3>Livros</h3>
+
+                        if len(consultation.Books) == 0 {
+                            <span>Nenhum livro foi adicionado nesta consulta.</span>
+                        } else {
+                            for _, book := range consultation.Books {
+                                <p>{book.Title}</p>
+                            }
+                        }
+                    </div>
+                }
+
+                if consultation.DoctorRole == "psychiatrist" {
+                    <div class="section">
+                        <h3>Receitas</h3>
+
+                        if len(consultation.Remedies) == 0 {
+                            <span>Nenhuma receita foi adicionada nesta consulta.</span>
+                        } else {
+                            for _, remedy := range consultation.Remedies {
+                                <div class="remedy">
+                                    <p>{remedy.Name}</p>
+                                    <p>{remedy.Dosage}</p>
+                                    <p>{remedy.Quantity}</p>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <div class="section">
+                        <h3>Diagnóstico</h3>
+
+                        if consultation.Diagnosis != "" {
+                            <p>{consultation.Diagnosis}</p>
+                        } else {
+                            <span>Nenhum diagnóstico adicionado nesta consulta.</span>
+                        }
+                    </div>
+                }
+            </div>
+        </main>
+    }
+}
