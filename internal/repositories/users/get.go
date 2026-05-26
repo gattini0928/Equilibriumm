@@ -966,46 +966,6 @@ func (r *UserRepository) GetPsychiatristIDByUserID(userID int) (int, error) {
 	return id, nil
 }
 
-// func (r *UserRepository) GetPatientConsultations(patientID int) ([]models.Consultation,error) {
-// 	query := `
-// 		SELECT id, patient_id, therapist_id, psychiatrist_id, date, price, annotation, agenda_id
-// 		FROM consultations
-// 		WHERE patient_id = $1
-// 	`
-// 	rows, err := r.DB.Query(query, patientID)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rows.Close()
-
-// 	var consultations []models.Consultation
-// 	for rows.Next() {
-// 		var consultation models.Consultation
-// 		err := rows.Scan(
-// 			&consultation.ID,
-// 			&consultation.PatientID,
-// 			&consultation.TherapistID,
-// 			&consultation.PsychiatristID,
-// 			&consultation.Date,
-// 			&consultation.Price,
-// 			&consultation.Annotation,
-// 			&consultation.AgendaID,
-// 		)
-// 		if err != nil {
-// 			return nil, err
-// 		}
-
-// 		consultations = append(consultations, consultation)
-// 	}
-
-// 	if consultations == nil {
-// 		return []models.Consultation{}, nil
-// 	}
-
-// 	return consultations, nil
-
-// }
-
 func (r *UserRepository) GetPatientConsultations(patientID int) ([]models.Consultation, error) {
 	query := `
 	SELECT 

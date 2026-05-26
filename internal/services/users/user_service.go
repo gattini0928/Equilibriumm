@@ -738,12 +738,11 @@ func (s *UserService) StartConsultation(userID, agendaID int) (int, error) {
 			agenda.ProfessionalID,
 			price,
 		)
-
 		if err != nil {
 			return 0, err
 		}
 
-		err = s.Repo.DeleteAgendaTX(tx, agenda.ID, agenda.ProfessionalID, agenda.ProfessionalRole)
+		err = s.Repo.DeleteAgendaTX(tx, agendaID, agenda.ProfessionalID, agenda.ProfessionalRole, agenda.PatientID)
 		if err != nil {
 			return 0, err
 		}
@@ -753,6 +752,7 @@ func (s *UserService) StartConsultation(userID, agendaID int) (int, error) {
 		if err != nil {
 			return 0, err
 		}
+
 		consultationID, err = s.Repo.CreatePsychiatristConsultation(
 			tx,
 			agenda.PatientID,
@@ -763,8 +763,7 @@ func (s *UserService) StartConsultation(userID, agendaID int) (int, error) {
 			return 0, err
 		}
 
-		err = s.Repo.DeleteAgendaTX(tx, agenda.ID, agenda.ProfessionalID, agenda.ProfessionalRole)
-
+		err = s.Repo.DeleteAgendaTX(tx, agendaID, agenda.ProfessionalID, agenda.ProfessionalRole, agenda.PatientID)
 		if err != nil {
 			return 0, err
 		}
@@ -925,4 +924,31 @@ func (s *UserService) SaveConsultationAnnotation(userID, consultationID int, ann
 	}
 
 	return s.Repo.UpdateAnnotationConsultation(consultationID, annotation)
+}
+
+func (s *UserService) EndConsultation(userID, consultationID int) error {
+	c, err := s.Repo.GetConsultationByID(consultationID)
+	if err != nil {
+		return err
+	}
+
+	user, err := s.Repo.GetUserByID(userID)
+	if err != nil {
+		return err
+	}
+
+	if err := s.validateConsultationAccess(userID, c, user.Role); err != nil {
+		return err
+	}
+
+	switch user.Role {
+	case "therapist":
+		return s.Repo.AddTherapistToPatient(c.PatientID, *c.TherapistID)
+
+	case "psychiatrist":
+		return s.Repo.AddPsychiatristToPatient(c.PatientID, *c.PsychiatristID)
+
+	default:
+		return errors.New("forbidden")
+	}
 }

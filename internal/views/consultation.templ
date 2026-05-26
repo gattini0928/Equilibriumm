@@ -1,6 +1,9 @@
 package views
 
-import "github.com/gattini0928/Equilibrium/internal/models"
+import (
+    "fmt"
+    "github.com/gattini0928/Equilibrium/internal/models"
+  )
 
 templ ConsultationPage(data models.ConsultationRoomView) {
 <html>
@@ -38,16 +41,17 @@ templ ConsultationPage(data models.ConsultationRoomView) {
           <div class="panels">
             <div class="panel">
               <h2>Anotação</h2>
-              <form action="" method="POST" class="form">
-                <textarea class="textarea"></textarea>
+              <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+                <textarea class="textarea" name="annotation"></textarea>
                 <button type="submit" class="btn">Salvar Anotação</button>
               </form>
             </div>
 
             <div class="panel">
               <h2>Livro</h2>
-              <form action="" method="POST" class="form">
-                <textarea class="textarea"></textarea>
+              <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+                 <input type="text" name="author" placeholder="author">
+                  <input type="text" name="title" placeholder="Título">
                 <button type="submit" class="btn">Salvar Livro</button>
               </form>
             </div>
@@ -62,18 +66,18 @@ templ ConsultationPage(data models.ConsultationRoomView) {
           <div class="panels">
             <div class="panel">
               <h2>Anotação</h2>
-              <form action="" method="POST" class="form">
-                <textarea class="textarea"></textarea>
+             <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+                <textarea class="textarea" name="annotation"></textarea>
                 <button type="submit" class="btn">Salvar Anotação</button>
               </form>
             </div>
 
             <div class="panel">
               <h2>Receita</h2>
-              <form action="" method="POST" class="form">
-                <input placeholder="Nome do remédio" class="input"/>
-                <input placeholder="Dosagem" class="input"/>
-                <input placeholder="Quantidade" class="input"/>
+              <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+                <input placeholder="Nome do remédio" class="input" name="remedy-name"/>
+                <input placeholder="Dosagem" class="input" name="remedy-dosage"/>
+                <input placeholder="Quantidade" class="input"name="remedy-quantity"/>
                 <button type="submit" class="btn">Salvar Receita</button>
               </form>
             </div>
@@ -81,8 +85,8 @@ templ ConsultationPage(data models.ConsultationRoomView) {
 
             <div class="panel">
               <h2>Diagnóstico</h2>
-              <form action="" method="POST" class="form">
-                <textarea class="textarea"></textarea>
+              <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+                 <input type="text" class="input" name="diagnosis">
                 <button type="submit" class="btn">Salvar Diagnóstico</button>
               </form>
             </div>

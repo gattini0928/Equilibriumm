@@ -29,7 +29,7 @@ func (r *UserRepository) AddTherapistToPatient(patientID int, therapistID int) e
 	_, err := r.DB.Exec(`
 		UPDATE patients
 		SET therapist_id = $1
-		WHERE user_id = $2;
+		WHERE id = $2;
 	`, therapistID, patientID)
 
 	if err != nil {
@@ -43,7 +43,7 @@ func (r *UserRepository) AddPsychiatristToPatient(patientID int, psychiatristID 
 	_, err := r.DB.Exec(`
 		UPDATE patients
 		SET psychiatrist_id = $1
-		WHERE user_id = $2
+		WHERE id = $2
 	`, psychiatristID, patientID)
 
 	return err

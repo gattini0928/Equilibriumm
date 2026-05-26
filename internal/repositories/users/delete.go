@@ -5,15 +5,16 @@ import (
 	"errors"
 )
 
-func (r *UserRepository) DeleteAgendaTX(tx *sql.Tx, agendaID int, professionalID int, professionalRole string) error {
+func (r *UserRepository) DeleteAgendaTX(tx *sql.Tx, agendaID int, professionalID int, professionalRole string, patientID int) error {
 	query := `
 		DELETE FROM agendas
 		WHERE id = $1
 		AND professional_id = $2
 		AND professional_role = $3
+		AND patient_id = $4
 		AND reserved = true
 	`
-	res, err := tx.Exec(query, agendaID, professionalID, professionalRole)
+	res, err := tx.Exec(query, agendaID, professionalID, professionalRole, patientID)
 	if err != nil {
 		return err
 	}
