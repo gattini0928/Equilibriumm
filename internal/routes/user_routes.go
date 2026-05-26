@@ -74,12 +74,6 @@ func UserRoutes(mux *http.ServeMux, h *handlerUsers.UserHandler, secret []byte) 
 		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleReserveTherapistAgenda)))
 	mux.Handle("POST /psychiatrists/{psychiatrist_id}/agendas/{agenda_id}/reserve", 
 		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleReservePsychiatristAgenda)))
-		
-	// PEFIL LOGADO (JWT) PACIENTE -> SEU TERAPEUTA
-	mux.Handle("GET /me/therapist",
-		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandlePatientTherapistDetail)))
-	mux.Handle("GET /me/psychiatrist",
-		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandlePatientPsychiatristDetail)))
 
 	// DETALHE DO PACIENTE (JWT)
 	mux.Handle("GET /patients/{id}",

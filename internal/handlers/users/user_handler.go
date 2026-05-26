@@ -614,6 +614,14 @@ func (h *UserHandler) HandleAddProfessionalToPatient(w http.ResponseWriter, r *h
 
 	err = h.Service.ProfessionalToPatient(userID, consultationID)
 	if err != nil {
+		if err.Error() == "forbidden" ||
+			err.Error() == "Você já possui um terapeuta" ||
+			err.Error() == "Você já possui um psiquiatra" {
+
+			utils.RenderStatusPage(w, r, err, http.StatusForbidden)
+			return
+		}
+
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 		return
 	}
@@ -621,35 +629,6 @@ func (h *UserHandler) HandleAddProfessionalToPatient(w http.ResponseWriter, r *h
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
 }
 
-func (h *UserHandler) HandlePatientTherapistDetail(w http.ResponseWriter, r *http.Request) {
-	patientID, ok := utils.CheckJWT(w, r.Context())
-	if !ok {
-		return
-	}
-
-	therapist, err := h.Service.PatientTherapistDetail(patientID)
-	if err != nil {
-		utils.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
-
-	utils.WriteJSON(w, http.StatusOK, therapist)
-}
-
-func (h *UserHandler) HandlePatientPsychiatristDetail(w http.ResponseWriter, r *http.Request) {
-	patientID, ok := utils.CheckJWT(w, r.Context())
-	if !ok {
-		return
-	}
-
-	psychiatrist, err := h.Service.PatientPsiquiatristDetail(patientID)
-	if err != nil {
-		utils.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
-
-	utils.WriteJSON(w, http.StatusOK, psychiatrist)
-}
 
 func (h *UserHandler) HandlePatientDetail(w http.ResponseWriter, r *http.Request) {
 	patientID, err := utils.CheckID("id", r)
@@ -934,7 +913,7 @@ func (h *UserHandler) HandleStartConsultation(w http.ResponseWriter, r *http.Req
 func (h *UserHandler) HandleSaveConsultationInfos(w http.ResponseWriter, r *http.Request) {
 	consultationID, err := utils.CheckID("consultation_id", r)
 	if err != nil {
-		utils.WriteError(w, http.StatusBadRequest, err)
+		utils.RenderStatusPage(w, r, err,  http.StatusBadRequest)
 		return
 	}
 

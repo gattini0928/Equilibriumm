@@ -117,7 +117,7 @@ templ DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) {
                 <img src={patient.Image} alt="Foto do Paciente"/>
                 <span>{patient.Name}</span>
               </div>
-              <a href={ templ.URL(fmt.Sprintf("/patient/%d", patient.ID)) }>Ver Detalhes</a>
+              <a href={ templ.URL(fmt.Sprintf("/patients/%d", patient.ID)) }>Ver Detalhes</a>
             </div>
           }
         }
