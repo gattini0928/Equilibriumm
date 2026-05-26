@@ -1,6 +1,9 @@
 package views
 
-import "github.com/gattini0928/Equilibrium/internal/models"
+import (
+    "fmt"
+    "github.com/gattini0928/Equilibrium/internal/models"
+)
 
 templ ConsultationDetailPage(consultation models.Consultation, isAuth bool) {
     @Layout("Detalhes da Consulta", isAuth, []string{"consultation_detail.css"}) {
@@ -77,6 +80,17 @@ templ ConsultationDetailPage(consultation models.Consultation, isAuth bool) {
                     </div>
                 }
             </div>
+            if consultation.DoctorRole == "therapist" {
+                <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/link-professional", consultation.ID)) }>
+                    <button type="submit">Vincular Terapeuta ({consultation.DoctorName})</button>
+                </form>
+            }
+
+            if consultation.DoctorRole == "psychiatrist" {
+                <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/link-professional", consultation.ID)) }>
+                    <button type="submit">Vincular Psiquiatra ({consultation.DoctorName})</button>
+                </form>
+            }
         </main>
     }
 }

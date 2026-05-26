@@ -17,8 +17,9 @@ func ConsultationRoutes(mux *http.ServeMux, h *handlerUsers.UserHandler, secret 
 	// Salvar Infos da Consulta 
 	mux.Handle("POST /consultations/{consultation_id}/save",
 		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleSaveConsultationInfos)))
-	mux.Handle("POST /consultations/{consultation_id}/end",
-		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleEndConsultation)))
+	// Vincula Profissional ao Paciente
+	mux.Handle("POST /consultations/{consultation_id}/link-professional",
+		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleAddProfessionalToPatient)))
 	// Detalhes da consulta
 	mux.Handle("GET /consultations/consultation-detail/{consultation_id}",
 		auth.JWTMiddleware(secret, http.HandlerFunc(h.HandleConsultationDetail)))

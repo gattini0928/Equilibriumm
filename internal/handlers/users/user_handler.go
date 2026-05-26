@@ -600,50 +600,25 @@ func (h *UserHandler) HandlePsychiatristDetail(w http.ResponseWriter, r *http.Re
 	_ = views.PsychiatristDetailPage(psychiatrist, agendas, isAuth).Render(r.Context(), w)
 }
 
-func (h *UserHandler) HandleAddTherapistToPatient(w http.ResponseWriter, r *http.Request) {
-	id, err := utils.CheckID("id", r)
+func (h *UserHandler) HandleAddProfessionalToPatient(w http.ResponseWriter, r *http.Request) {
+	consultationID, err := utils.CheckID("consultation_id", r)
 	if err != nil {
-		utils.WriteJSON(w, http.StatusBadRequest, err)
+		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
 		return 
 	}
 
-	patientID, ok := utils.CheckJWT(w, r.Context())
+	userID, ok := utils.CheckJWT(w, r.Context())
 	if !ok {
 		return
 	}
 
-	err = h.Service.TherapistToPatient(patientID, id)
+	err = h.Service.ProfessionalToPatient(userID, consultationID)
 	if err != nil {
-		utils.WriteError(w, http.StatusInternalServerError, err)
+		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 		return
 	}
 
-	utils.WriteJSON(w, http.StatusOK, map[string]string{
-		"message": "Terapeuta vinculado com sucesso",
-	})
-}
-
-func (h *UserHandler) HandleAddPsychiatristToPatient(w http.ResponseWriter, r *http.Request) {
-	id, err := utils.CheckID("id", r)
-	if err != nil {
-		utils.WriteJSON(w, http.StatusBadRequest, err)
-		return 
-	}
-
-	patientID, ok := utils.CheckJWT(w, r.Context())
-	if !ok {
-		return
-	}
-
-	err = h.Service.PsychiatristToPatient(patientID, id)
-	if err != nil {
-		utils.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
-
-	utils.WriteJSON(w, http.StatusOK, map[string]string{
-	"message": "Psiquiatra vinculado com sucesso",
-	})
+	http.Redirect(w, r, "/me", http.StatusSeeOther)
 }
 
 func (h *UserHandler) HandlePatientTherapistDetail(w http.ResponseWriter, r *http.Request) {
@@ -1016,27 +991,6 @@ func (h *UserHandler) HandleSaveConsultationInfos(w http.ResponseWriter, r *http
 	}
 
 	http.Redirect(w, r, fmt.Sprintf("/consultations/%d", consultationID), http.StatusSeeOther)
-}
-
-func (h *UserHandler) HandleEndConsultation(w http.ResponseWriter, r *http.Request) {
-	consultationID, err := utils.CheckID("consultation_id",r)
-	if err != nil {
-		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
-		return 
-	}
-
-	userID, ok := utils.CheckJWT(w, r.Context())
-	if !ok {
-		return
-	}
-
-	err = h.Service.EndConsultation(userID, consultationID)
-	if err != nil {
-		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
-		return 
-	}
-
-	http.Redirect(w, r, "/me", http.StatusSeeOther)
 }
 
 func (h *UserHandler) HandleLogout(w http.ResponseWriter, r *http.Request) {

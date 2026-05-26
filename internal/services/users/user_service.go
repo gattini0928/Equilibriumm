@@ -246,22 +246,12 @@ func (s *UserService) PsychiatristDetail(userID int) (models.DoctorWithUser, []m
 	return psychiatrist, agendas, nil
 }
 
-func (s *UserService) TherapistToPatient(patientID, therapistID int) error {
-	user, err := s.Repo.GetUserByID(patientID)
-
+func (s *UserService) ProfessionalToPatient(userID, consultationID int) error {
+	c, err := s.Repo.GetConsultationByID(consultationID)
 	if err != nil {
 		return err
 	}
-
-	if user.Role != "patient" {
-		return errors.New("forbidden")
-	}
-	
-	return s.Repo.AddTherapistToPatient(patientID, therapistID)
-}
-
-func (s *UserService) PsychiatristToPatient(patientID, psychiatristID int) error {
-	user, err := s.Repo.GetUserByID(patientID)
+	user, err := s.Repo.GetUserByID(userID)
 	if err != nil {
 		return err
 	}
@@ -270,8 +260,37 @@ func (s *UserService) PsychiatristToPatient(patientID, psychiatristID int) error
 		return errors.New("forbidden")
 	}
 
-	return s.Repo.AddPsychiatristToPatient(patientID, psychiatristID)
+	patientID, err := s.Repo.GetPatientIDByUserID(userID)
+	if err != nil {
+		return err
+	}
 
+	if c.PatientID != patientID {
+		return errors.New("Paciente não pertence a esta consulta")
+	}
+
+	if c.TherapistID != nil {
+		therapist, err := s.Repo.GetPatientTherapist(userID)
+		if err != nil {
+			return err
+		}
+		if therapist == nil {
+			return s.Repo.AddTherapistToPatient(c.PatientID, *c.TherapistID)
+		}
+		return errors.New("Você já possui um terapeuta")
+	}
+
+	if c.PsychiatristID != nil {
+		psychiastrist, err := s.Repo.GetPatientPsychiatrist(userID)
+		if err != nil {
+			return err
+		}
+		if psychiastrist == nil {
+			return s.Repo.AddPsychiatristToPatient(c.PatientID, *c.PsychiatristID)
+		}
+		return errors.New("Você já possui um psiquaitra")
+	}
+	return nil
 }
 
 // Terapeuta ou Psiquiatra vê os detalhes do paciente
