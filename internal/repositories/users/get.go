@@ -876,12 +876,13 @@ func (r *UserRepository) GetAgendaByID(agendaID int) (models.Agenda, error) {
 	var patientID sql.NullInt64
 
 	err := r.DB.QueryRow(`
-		SELECT id, professional_id, patient_id, date, reserved
+		SELECT id, professional_id, professional_role, patient_id, date, reserved
 		FROM agendas
 		WHERE id = $1
 	`, agendaID).Scan(
 		&a.ID,
 		&a.ProfessionalID,
+		&a.ProfessionalRole,
 		&patientID,
 		&a.Date,
 		&a.Reserved,
@@ -1024,8 +1025,7 @@ func (r *UserRepository) GetPatientConsultations(patientID int) ([]models.Consul
 			c.date,
 			c.price,
 			c.annotation,
-			c.diagnosis,
-			c.agenda_id
+			c.diagnosis
 
 		FROM consultations c
 
@@ -1055,7 +1055,6 @@ func (r *UserRepository) GetPatientConsultations(patientID int) ([]models.Consul
 			&consultation.Price,
 			&consultation.Annotation,
 			&consultation.Diagnosis,
-			&consultation.AgendaID,
 		)
 		if err != nil {
 			return nil, err
