@@ -91,23 +91,23 @@ func (r *UserRepository) InsertAgenda(professionalID int, professionalRole strin
 	return agenda, nil
 }
 
-func (r *UserRepository) CreateTherapistConsultation(tx *sql.Tx,  patientID, therapistID, agendaID int, price float64) (int, error) {
+func (r *UserRepository) CreateTherapistConsultation(tx *sql.Tx,  patientID int, therapistID int, price float64) (int, error) {
 	var consultationID int
 	query := `
-		INSERT INTO consultations (patient_id, therapist_id, agenda_id, date, price)
-		VALUES ($1, $2, $3, NOW(), $4) RETURNING id
+		INSERT INTO consultations (patient_id, therapist_id, date, price)
+		VALUES ($1, $2, NOW(), $3) RETURNING id
 		`
-	err := tx.QueryRow(query, patientID, therapistID, agendaID, price).Scan(&consultationID)
+	err := tx.QueryRow(query, patientID, therapistID, price).Scan(&consultationID)
 	return consultationID, err
 }
 
-func (r *UserRepository) CreatePsychiatristConsultation(tx *sql.Tx, patientID, psychiatristID, agendaID int, price float64) (int, error) {
+func (r *UserRepository) CreatePsychiatristConsultation(tx *sql.Tx, patientID int, psychiatristID int, price float64) (int, error) {
 	var consultationID int
 	query := `
-		INSERT INTO consultations (patient_id, psychiatrist_id, agenda_id, date, price)
-		VALUES ($1, $2, $3, NOW(), $4) RETURNING id
+		INSERT INTO consultations (patient_id, psychiatrist_id, date, price)
+		VALUES ($1, $2, NOW(), $3) RETURNING id
 		`
-	err := tx.QueryRow(query, patientID, psychiatristID, agendaID, price).Scan(&consultationID)
+	err := tx.QueryRow(query, patientID, psychiatristID, price).Scan(&consultationID)
 	return consultationID, err
 }
 
