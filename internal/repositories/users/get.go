@@ -698,9 +698,13 @@ func (r *UserRepository) GetPsychiatristPatient(patientID int) (models.PatientWi
 		FROM consultations c
 		JOIN consultation_remedies cr ON cr.consultation_id = c.id
 		JOIN remedies rm ON rm.id = cr.remedy_id
-		WHERE c.patient_id = $1
-		ORDER BY c.date DESC
-		LIMIT 1
+		WHERE c.id = (
+			SELECT id
+			FROM consultations
+			WHERE patient_id = $1
+			ORDER BY date DESC
+			LIMIT 1
+		)
 	`, patientID)
 
 	if err != nil {
