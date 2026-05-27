@@ -13,7 +13,16 @@ templ PatientDetailPage(patient models.PatientWithUser, isAuth bool) {
             <span><span class="label">Email:</span> {patient.Email}</span>
             <span><span class="label">Idade:</span> {patient.Age} anos</span>
             <span><span class="label">Diagnóstico:</span>{patient.CurrentDiagnosis}</span>
-
+            if len(patient.Remedies) == 0 {
+                <span>Paciente sem remédios prescritos</span>
+            } else {
+                <h3>Remédios</h3>
+                for _, remedy := range patient.Remedies {
+                    <span><span class="label">Nome:</span> {remedy.Name}</span>
+                    <span><span class="label">Dosagem:</span> {remedy.Dosage} anos</span>
+                    <span><span class="label">Quantity:</span>{remedy.Quantity}</span>
+                }
+            }
         </div>
 
         </main>

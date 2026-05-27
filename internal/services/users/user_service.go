@@ -288,7 +288,7 @@ func (s *UserService) ProfessionalToPatient(userID, consultationID int) error {
 		if psychiastrist == nil {
 			return s.Repo.AddPsychiatristToPatient(c.PatientID, *c.PsychiatristID)
 		}
-		return errors.New("Você já possui um psiquaitra")
+		return errors.New("Você já possui um psiquiatra")
 	}
 	return nil
 }
@@ -535,7 +535,7 @@ func (s *UserService) Perfil(userID int) (any, error) {
 			return nil, err
 		}
 
-		patients,  err := s.Repo.GetTherapistPatients(therapistID)
+		patients,  err := s.Repo.GetTherapistPatients(userID)
 		if err != nil {
 			return nil, err
 		}
@@ -577,7 +577,7 @@ func (s *UserService) Perfil(userID int) (any, error) {
 			return nil, err
 		}
 
-		patients,  err := s.Repo.GetPsychiatristPatients(psychiatristID)
+		patients,  err := s.Repo.GetPsychiatristPatients(userID)
 		if err != nil {
 			return nil, err
 		}

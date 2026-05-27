@@ -3,6 +3,7 @@ package users
 import (
 	"database/sql"
 	"errors"
+	"log"
 
 	"github.com/gattini0928/Equilibrium/internal/models"
 )
@@ -622,67 +623,85 @@ func (r *UserRepository) GetPsychiatristReservedAgendas(psychiatristID int, prof
 	return agendas, nil
 }
 
-func (r *UserRepository) GetTherapistPatient(patiendID int) (models.PatientWithUser, error) {
+func (r *UserRepository) GetTherapistPatient(patientID int) (models.PatientWithUser, error) {
 	var patient models.PatientWithUser
-	query := `
-	SELECT 
-		p.id,
-		u.name, u.email, u.age, u.image,
-		p.current_diagnosis,
-		b.id, b.author, b.title
+	var currentDiagnosis sql.NullString
+
+	err := r.DB.QueryRow(`
+		SELECT
+			p.id,
+			u.name,
+			u.email,
+			u.age,
+			u.image,
+			p.current_diagnosis
 		FROM patients p
 		JOIN users u ON u.id = p.user_id
-		JOIN consultations c ON c.patient_id = p.id
-		JOIN consultation_books cb ON cb.consultation_id = c.id
-		JOIN books b ON b.id = cb.book_id
-		WHERE p.user_id = $1;
-		`
+		WHERE p.id = $1
+	`, patientID).Scan(
+		&patient.ID,
+		&patient.Name,
+		&patient.Email,
+		&patient.Age,
+		&patient.Image,
+		&currentDiagnosis,
+	)
 
-	rows, err := r.DB.Query(query, patiendID)
 	if err != nil {
 		return models.PatientWithUser{}, err
 	}
 
-	defer rows.Close()
-
-	var books []models.Book
-	for rows.Next(){
-		var b models.Book
-		err := rows.Scan(
-			&patient.ID,
-			&patient.Name,
-			&patient.Email,
-			&patient.Age,
-			&patient.Image,
-			&patient.CurrentDiagnosis,
-			&b.ID,
-			&b.Author,
-			&b.Title,
-		)
-		if err != nil {
-			return models.PatientWithUser{}, err
-		}
-		books = append(books, b)
+	if currentDiagnosis.Valid {
+		patient.CurrentDiagnosis = currentDiagnosis.String
 	}
 
-	patient.Books = books
 	return patient, nil
 }
 
-func (r *UserRepository) GetPsychiatristPatient(patiendID int) (models.PatientWithUser, error) {
+func (r *UserRepository) GetPsychiatristPatient(patientID int) (models.PatientWithUser, error) {
 	var patient models.PatientWithUser
-	query := `
-		SELECT p.id, u.name, u.email, u.age, u.image, p.current_diagnosis,
-		r.id, r.name, r.dosage, r.quantity
-		FROM patients p
-		JOIN users u ON u.id = p.id
-		JOIN consultation c ON c.patient_id = p.id
-		JOIN consultation_remedies cr ON consultation.id = cr.remedy_id
-		JOIN remedies r ON r.id = cr.id
-		WHERE user_id = $1;
-	`
+	var currentDiagnosis sql.NullString
 
-	rows, err := r.DB.Query(query,patiendID)
+	err := r.DB.QueryRow(`
+		SELECT
+			p.id,
+			u.name,
+			u.email,
+			u.age,
+			u.image,
+			p.current_diagnosis
+		FROM patients p
+		JOIN users u ON u.id = p.user_id
+		WHERE p.id = $1
+	`, patientID).Scan(
+		&patient.ID,
+		&patient.Name,
+		&patient.Email,
+		&patient.Age,
+		&patient.Image,
+		&currentDiagnosis,
+	)
+
+	if err != nil {
+		return models.PatientWithUser{}, err
+	}
+
+	if currentDiagnosis.Valid {
+		patient.CurrentDiagnosis = currentDiagnosis.String
+	}
+
+	rows, err := r.DB.Query(`
+		SELECT
+			rm.id,
+			rm.name,
+			rm.dosage,
+			rm.quantity
+		FROM consultations c
+		JOIN consultation_remedies cr ON cr.consultation_id = c.id
+		JOIN remedies rm ON rm.id = cr.remedy_id
+		WHERE c.patient_id = $1
+	`, patientID)
+
 	if err != nil {
 		return models.PatientWithUser{}, err
 	}
@@ -691,24 +710,19 @@ func (r *UserRepository) GetPsychiatristPatient(patiendID int) (models.PatientWi
 	var remedies []models.Remedy
 
 	for rows.Next() {
-		var r models.Remedy
+		var remedy models.Remedy
+
 		err := rows.Scan(
-			&patient.ID,
-			&patient.Name,
-			&patient.Email,
-			&patient.Age,
-			&patient.Image,
-			&patient.CurrentDiagnosis,
-			&r.ID,
-			&r.Name,
-			&r.Dosage,
-			&r.Quantity,
+			&remedy.ID,
+			&remedy.Name,
+			&remedy.Dosage,
+			&remedy.Quantity,
 		)
 		if err != nil {
 			return models.PatientWithUser{}, err
 		}
 
-		remedies = append(remedies, r)
+		remedies = append(remedies, remedy)
 	}
 
 	patient.Remedies = remedies
@@ -716,7 +730,7 @@ func (r *UserRepository) GetPsychiatristPatient(patiendID int) (models.PatientWi
 	return patient, nil
 }
 
- func (r *UserRepository) GetTherapistPatients(doctorID int) ([]models.PatientWithUser, error) {
+func (r *UserRepository) GetTherapistPatients(doctorID int) ([]models.PatientWithUser, error) {
 	query := `
 	SELECT p.id, u.name, u.email, u.age, u.image, p.current_diagnosis
 	FROM patients p
@@ -724,6 +738,8 @@ func (r *UserRepository) GetPsychiatristPatient(patiendID int) (models.PatientWi
 	JOIN therapists t ON t.id = p.therapist_id
 	WHERE t.user_id = $1
 	`
+
+	log.Println("GetPsychiatristPatients doctorID:", doctorID)
 
 	rows, err := r.DB.Query(query, doctorID)
 	if err != nil {
@@ -760,32 +776,36 @@ func (r *UserRepository) GetPsychiatristPatient(patiendID int) (models.PatientWi
 	SELECT p.id, u.name, u.email, u.age, u.image, p.current_diagnosis
 	FROM patients p
 	JOIN users u ON u.id = p.user_id
-	JOIN psychiatrists ps ON p.id = p.psychiatrist_id
+	JOIN psychiatrists ps ON ps.id = p.psychiatrist_id
 	WHERE ps.user_id = $1
 	`
 
 	rows, err := r.DB.Query(query, doctorID)
 	if err != nil {
+		log.Println("Erro no Scan:", err)
 		return nil, err
 	}
 	defer rows.Close()
 
 	var patients []models.PatientWithUser
+	var currentDiagnosis sql.NullString
 
 	for rows.Next() {
 		var p models.PatientWithUser
 		err := rows.Scan(
 			&p.ID, &p.Name, &p.Email, &p.Age, &p.Image, 
-			&p.CurrentDiagnosis)
-
+			&currentDiagnosis)
 		if err != nil {
 			return nil, err
+		}
+
+		if currentDiagnosis.Valid {
+			p.CurrentDiagnosis = currentDiagnosis.String
 		}
 
 		patients = append(patients, p)
 	}
 
-	
 	if patients == nil {
 		return []models.PatientWithUser{}, nil
 	}
