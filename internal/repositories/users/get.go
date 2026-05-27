@@ -3,7 +3,6 @@ package users
 import (
 	"database/sql"
 	"errors"
-	"log"
 
 	"github.com/gattini0928/Equilibrium/internal/models"
 )
@@ -700,6 +699,8 @@ func (r *UserRepository) GetPsychiatristPatient(patientID int) (models.PatientWi
 		JOIN consultation_remedies cr ON cr.consultation_id = c.id
 		JOIN remedies rm ON rm.id = cr.remedy_id
 		WHERE c.patient_id = $1
+		ORDER BY c.date DESC
+		LIMIT 1
 	`, patientID)
 
 	if err != nil {
@@ -738,8 +739,6 @@ func (r *UserRepository) GetTherapistPatients(doctorID int) ([]models.PatientWit
 	JOIN therapists t ON t.id = p.therapist_id
 	WHERE t.user_id = $1
 	`
-
-	log.Println("GetPsychiatristPatients doctorID:", doctorID)
 
 	rows, err := r.DB.Query(query, doctorID)
 	if err != nil {
@@ -782,7 +781,6 @@ func (r *UserRepository) GetTherapistPatients(doctorID int) ([]models.PatientWit
 
 	rows, err := r.DB.Query(query, doctorID)
 	if err != nil {
-		log.Println("Erro no Scan:", err)
 		return nil, err
 	}
 	defer rows.Close()
