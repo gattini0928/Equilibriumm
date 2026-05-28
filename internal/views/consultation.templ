@@ -10,6 +10,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
   <head>
     <title>Consulta</title>
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script src="https://meet.jit.si/external_api.js"></script>
     <link rel="stylesheet" href="/static/css/consultation.css">
   </head>
 
@@ -26,9 +27,35 @@ templ ConsultationPage(data models.ConsultationRoomView) {
         <h1>Consulta com o paciente {data.Consultation.PatientName}</h1>
       }
 
-      <div class="video-container">
-        JITSI VIDEO HERE
-      </div>
+      <div id="meet"></div>
+      
+<script>
+  const domain = "meet.jit.si";
+
+  const options = {
+    roomName: "equilibrium-consulta-{ data.Consultation.ID }",
+    parentNode: document.querySelector("#meet"),
+
+    configOverwrite: {
+      prejoinPageEnabled: false,
+      disableDeepLinking: true,
+      startWithAudioMuted: false,
+      startWithVideoMuted: false,
+    },
+
+    interfaceConfigOverwrite: {
+      TOOLBAR_BUTTONS: [
+        "microphone",
+        "camera",
+        "hangup",
+        "fullscreen",
+        "settings"
+      ],
+    }
+  };
+
+  const api = new JitsiMeetExternalAPI(domain, options);
+</script>
 
       if data.UserRole == "patient" {
         <div class="patient-view">

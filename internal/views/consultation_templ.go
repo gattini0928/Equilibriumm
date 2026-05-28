@@ -34,7 +34,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><title>Consulta</title><script src=\"https://unpkg.com/htmx.org@1.9.12\"></script><link rel=\"stylesheet\" href=\"/static/css/consultation.css\"></head><body><main>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><title>Consulta</title><script src=\"https://unpkg.com/htmx.org@1.9.12\"></script><script src=\"https://meet.jit.si/external_api.js\"></script><link rel=\"stylesheet\" href=\"/static/css/consultation.css\"></head><body><main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -47,7 +47,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 				var templ_7745c5c3_Var2 string
 				templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(data.Consultation.DoctorName)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 20, Col: 68}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 21, Col: 68}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 				if templ_7745c5c3_Err != nil {
@@ -70,7 +70,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(data.Consultation.DoctorName)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 23, Col: 69}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 24, Col: 69}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
@@ -89,7 +89,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(data.Consultation.PatientName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 26, Col: 66}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 27, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -100,7 +100,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"video-container\">JITSI VIDEO HERE</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div id=\"meet\"></div><script>\r\n  const domain = \"meet.jit.si\";\r\n\r\n  const options = {\r\n    roomName: \"equilibrium-consulta-{ data.Consultation.ID }\",\r\n    parentNode: document.querySelector(\"#meet\"),\r\n\r\n    configOverwrite: {\r\n      prejoinPageEnabled: false,\r\n      disableDeepLinking: true,\r\n      startWithAudioMuted: false,\r\n      startWithVideoMuted: false,\r\n    },\r\n\r\n    interfaceConfigOverwrite: {\r\n      TOOLBAR_BUTTONS: [\r\n        \"microphone\",\r\n        \"camera\",\r\n        \"hangup\",\r\n        \"fullscreen\",\r\n        \"settings\"\r\n      ],\r\n    }\r\n  };\r\n\r\n  const api = new JitsiMeetExternalAPI(domain, options);\r\n</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -118,7 +118,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			var templ_7745c5c3_Var5 templ.SafeURL
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 44, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 71, Col: 113}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -131,7 +131,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			var templ_7745c5c3_Var6 templ.SafeURL
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 52, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 79, Col: 113}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -150,7 +150,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			var templ_7745c5c3_Var7 templ.SafeURL
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 69, Col: 112}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 96, Col: 112}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -163,7 +163,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			var templ_7745c5c3_Var8 templ.SafeURL
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 77, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 104, Col: 113}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -176,7 +176,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			var templ_7745c5c3_Var9 templ.SafeURL
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 88, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 115, Col: 113}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {

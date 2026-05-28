@@ -661,25 +661,19 @@ func (h *UserHandler) HandleAddAgenda(w http.ResponseWriter, r *http.Request) {
 	dateStr := r.FormValue("date")
 	hour := r.FormValue("hour")
 
-	date, err := time.Parse("2006-01-02", dateStr)
-	if err != nil {
-		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
-		return
-	}
-
-	err = validators.ValidateDate(date)
-	if err != nil {
-		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
-		return
-	}
-
-	err = validators.ValidateHour(hour)
+	err := validators.ValidateHour(hour)
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
 		return
 	}
 
 	dateTime, err := time.Parse("2006-01-02 15:04", dateStr+" "+hour)
+	if err != nil {
+		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
+		return
+	}
+
+	err = validators.ValidateDate(dateTime)
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusBadRequest)
 		return
