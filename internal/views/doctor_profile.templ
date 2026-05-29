@@ -32,56 +32,7 @@ templ DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) {
         </p>
       </section>
 
-      if len(p.Agendas) == 0 {
-        <div class="no-agenda">
-          <h2>Agendas</h2>
-          <span>{data.Messages["agendas"]}</span>
-          <form method="POST" hx-post="/me/agenda" hx-target="#toast" hx-swap="innerHTML">
-            <input type="date" name="date" placeholder="Data" required>
-            <input type="time" name="hour" placeholder="09:00" required>
-            <button type="submit">Adicionar Agenda</button>
-          </form>
-
-          <div class="price-container">
-            <span class="price">R${fmt.Sprintf("%.2f", p.Perfil.Price)}</span>
-            <form method="POST" hx-post="/me/price" hx-target="#toast" hx-swap="innerHTML">
-              <input type="number" step="0.01" name="price" placeholder="Preço da Consulta" required>
-              <button type="submit">Atualizar Preço</button>
-            </form>
-          </div>
-        </div>
-      } else {
-        <section class="card">
-          <h2>Agendas</h2>
-
-          for _, agenda := range p.Agendas {
-            <div class="schedule-list">
-              <div class="schedule-item">
-                <span class="date">
-                  <span>{agenda.Date.Format("02/01/2006 15:04")}</span>
-                </span>
-                <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/me/agenda/%d", agenda.ID)) } hx-target="#toast" hx-swap="innerHTML">
-                  <button type="submit">Deletar</button>
-                </form>
-              </div>
-            </div>
-          }
-
-          <form method="POST" hx-post="/me/agenda" hx-target="#toast" hx-swap="innerHTML">
-            <input type="date" name="date" placeholder="Data" required>
-            <input type="time" name="hour" placeholder="09:00" required>
-            <button type="submit">Adicionar Agenda</button>
-          </form>
-
-          <div class="price-container">
-            <span class="price">R${fmt.Sprintf("%.2f", p.Perfil.Price)}</span>
-            <form method="POST" hx-post="/me/price" hx-target="#toast" hx-swap="innerHTML">
-              <input type="number" step="0.01" name="price" placeholder="Preço da Consulta">
-              <button type="submit">Atualizar Preço</button>
-            </form>
-          </div>
-        </section>
-      }
+      @DoctorAgendasCard(data, p)
 
       <section class="card">
         <h2>Horários Reservados</h2>

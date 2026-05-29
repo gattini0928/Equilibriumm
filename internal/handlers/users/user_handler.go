@@ -20,6 +20,7 @@ import (
 	"github.com/gattini0928/Equilibrium/internal/middleware"
 	"github.com/gattini0928/Equilibrium/internal/utils"
 	"github.com/gattini0928/Equilibrium/internal/views"
+
 )
 
 func (h *UserHandler) HandleHome(w http.ResponseWriter, r *http.Request) {
@@ -629,7 +630,6 @@ func (h *UserHandler) HandleAddProfessionalToPatient(w http.ResponseWriter, r *h
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
 }
 
-
 func (h *UserHandler) HandlePatientDetail(w http.ResponseWriter, r *http.Request) {
 	patientID, err := utils.CheckID("id", r)
 	if err != nil {
@@ -686,7 +686,31 @@ func (h *UserHandler) HandleAddAgenda(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Header.Get("HX-Request") == "true" {
-		w.Write([]byte(`<span class="toast success">Agenda Criada</span>`))
+		perfil, err := h.Service.Perfil(userID)
+		if err != nil {
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+
+		p, ok := perfil.(models.DoctorDashboard)
+		if !ok {
+			utils.RenderStatusPage(w, r, fmt.Errorf("perfil inválido"), http.StatusInternalServerError)
+			return
+		}
+
+		messages := map[string]string{}
+		if len(p.Agendas) == 0 {
+			messages["agendas"] = "Você ainda não tem nenhuma agenda"
+		}
+
+		data := models.PerfilView{
+			ViewData: models.ViewData{
+				IsAuth: middleware.IsAuthenticated(r),
+			},
+			Messages: messages,
+		}
+
+		_ = views.DoctorAgendasCard(data, p).Render(r.Context(), w)
 		return
 	}
 
@@ -794,11 +818,6 @@ func (h *UserHandler) HandleUpdatePrice(w http.ResponseWriter, r *http.Request) 
 	err = h.Service.UpdatePrice(userID, price)
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
-		return
-	}
-
-	if r.Header.Get("HX-Request") == "true" {
-		w.Write([]byte(`<span class="toast success">Preço da Consulta atualizado com sucesso</span>`))
 		return
 	}
 
