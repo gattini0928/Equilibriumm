@@ -16,7 +16,13 @@ func UserRoutes(mux *http.ServeMux, h *handlerUsers.UserHandler, secret []byte) 
 	http.StripPrefix("/static/",
 		http.FileServer(http.Dir("static")),
 		),
-	)			
+	)
+	
+	mux.Handle("/js/",
+	http.StripPrefix("/js/",
+		http.FileServer(http.Dir("js")),
+		),
+	)
 
 	mux.Handle("GET /{$}",
 		middleware.AuthMiddleware(

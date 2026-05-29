@@ -100,7 +100,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div id=\"meet\"></div><script>\r\n  const domain = \"meet.jit.si\";\r\n\r\n  const options = {\r\n    roomName: \"equilibrium-consulta-{ data.Consultation.ID }\",\r\n    parentNode: document.querySelector(\"#meet\"),\r\n\r\n    configOverwrite: {\r\n      prejoinPageEnabled: false,\r\n      disableDeepLinking: true,\r\n      startWithAudioMuted: false,\r\n      startWithVideoMuted: false,\r\n    },\r\n\r\n    interfaceConfigOverwrite: {\r\n      TOOLBAR_BUTTONS: [\r\n        \"microphone\",\r\n        \"camera\",\r\n        \"hangup\",\r\n        \"fullscreen\",\r\n        \"settings\"\r\n      ],\r\n    }\r\n  };\r\n\r\n  const api = new JitsiMeetExternalAPI(domain, options);\r\n</script>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div id=\"meet\"></div><script>\r\n  const domain = \"meet.jit.si\";\r\n\r\n  const options = {\r\n    roomName: \"equilibrium-consulta-{ data.Consultation.ID }\",\r\n    parentNode: document.querySelector(\"#meet\"),\r\n\r\n    configOverwrite: {\r\n      prejoinPageEnabled: false,\r\n      disableDeepLinking: true,\r\n      startWithAudioMuted: false,\r\n      startWithVideoMuted: false,\r\n    },\r\n\r\n    interfaceConfigOverwrite: {\r\n      TOOLBAR_BUTTONS: [\r\n        \"microphone\",\r\n        \"camera\",\r\n        \"hangup\",\r\n        \"fullscreen\",\r\n        \"settings\"\r\n      ],\r\n    }\r\n  };\r\n\r\n  const api = new JitsiMeetExternalAPI(domain, options);\r\n</script><div id=\"toast\"></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -111,83 +111,83 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			}
 		}
 		if data.Consultation.DoctorRole == "therapist" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<div class=\"therapist-view\"><div class=\"panels\"><div class=\"panel\"><h2>Anotação</h2><form method=\"POST\" action=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<div class=\"therapist-view\"><div class=\"panels\"><div class=\"panel\"><h2>Anotação</h2><form method=\"POST\" hx-post=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var5 templ.SafeURL
-			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 71, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 73, Col: 114}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\" class=\"form\"><textarea class=\"textarea\" name=\"annotation\"></textarea> <button type=\"submit\" class=\"btn\">Salvar Anotação</button></form></div><div class=\"panel\"><h2>Livro</h2><form method=\"POST\" action=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\" hx-target=\"#toast\" hx-swap=\"innerHTML\" class=\"form\"><textarea class=\"textarea\" name=\"annotation\"></textarea> <button type=\"submit\" class=\"btn\">Salvar Anotação</button></form></div><div class=\"panel\"><h2>Livro</h2><form method=\"POST\" hx-post=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var6 templ.SafeURL
-			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 79, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 81, Col: 114}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\" class=\"form\"><input type=\"text\" name=\"author\" placeholder=\"author\"> <input type=\"text\" name=\"title\" placeholder=\"Título\"> <button type=\"submit\" class=\"btn\">Salvar Livro</button></form></div></div><a class=\"end-consultation\" href=\"/\">Encerrar Consulta</a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\" hx-target=\"#toast\" hx-swap=\"innerHTML\" class=\"form\"><input type=\"text\" name=\"author\" placeholder=\"author\"> <input type=\"text\" name=\"title\" placeholder=\"Título\"> <button type=\"submit\" class=\"btn\">Salvar Livro</button></form></div></div><a class=\"end-consultation\" href=\"/\">Encerrar Consulta</a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if data.Consultation.DoctorRole == "psychiatrist" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<div class=\"psychiatrist-view\"><div class=\"panels\"><div class=\"panel\"><h2>Anotação</h2><form method=\"POST\" action=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<div class=\"psychiatrist-view\"><div class=\"panels\"><div class=\"panel\"><h2>Anotação</h2><form method=\"POST\" hx-post=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var7 templ.SafeURL
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
+			var templ_7745c5c3_Var7 string
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 96, Col: 112}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 98, Col: 113}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" class=\"form\"><textarea class=\"textarea\" name=\"annotation\"></textarea> <button type=\"submit\" class=\"btn\">Salvar Anotação</button></form></div><div class=\"panel\"><h2>Receita</h2><form method=\"POST\" action=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" hx-target=\"#toast\" hx-swap=\"innerHTML\" class=\"form\"><textarea class=\"textarea\" name=\"annotation\"></textarea> <button type=\"submit\" class=\"btn\">Salvar Anotação</button></form></div><div class=\"panel\"><h2>Receita</h2><form method=\"POST\" hx-post=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var8 templ.SafeURL
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
+			var templ_7745c5c3_Var8 string
+			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 104, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 106, Col: 114}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" class=\"form\"><input placeholder=\"Nome do remédio\" class=\"input\" name=\"remedy-name\"> <input placeholder=\"Dosagem\" class=\"input\" name=\"remedy-dosage\"> <input placeholder=\"Quantidade\" class=\"input\" name=\"remedy-quantity\"> <button type=\"submit\" class=\"btn\">Salvar Receita</button></form></div></div><div class=\"panel\"><h2>Diagnóstico</h2><form method=\"POST\" action=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" hx-target=\"#toast\" hx-swap=\"innerHTML\" class=\"form\"><input placeholder=\"Nome do remédio\" class=\"input\" name=\"remedy-name\"> <input placeholder=\"Dosagem\" class=\"input\" name=\"remedy-dosage\"> <input placeholder=\"Quantidade\" class=\"input\" name=\"remedy-quantity\"> <button type=\"submit\" class=\"btn\">Salvar Receita</button></form></div></div><div class=\"panel\"><h2>Diagnóstico</h2><form method=\"POST\" hx-post=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var9 templ.SafeURL
-			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
+			var templ_7745c5c3_Var9 string
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 115, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/consultation.templ`, Line: 117, Col: 114}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\" class=\"form\"><input type=\"text\" class=\"input\" name=\"diagnosis\"> <button type=\"submit\" class=\"btn\">Salvar Diagnóstico</button></form></div><a class=\"end-consultation\" href=\"/me\">Encerrar Consulta</a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\" hx-target=\"#toast\" hx-swap=\"innerHTML\" class=\"form\"><input type=\"text\" class=\"input\" name=\"diagnosis\"> <button type=\"submit\" class=\"btn\">Salvar Diagnóstico</button></form></div><a class=\"end-consultation\" href=\"/me\">Encerrar Consulta</a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</main></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</main><script src=\"/js/toast.js\"></script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
