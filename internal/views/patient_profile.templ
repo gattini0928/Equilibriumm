@@ -8,8 +8,8 @@ import (
 templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
   @Layout("Perfil", data.IsAuth, []string{"profile.css"}) {
     <main class="patient-profile-page">
+    <div id="toast"></div>
       <section class="grid">
-
         <div class="card profile-card">
           <img src={p.Perfil.Image} alt="Foto de Perfil"/>
           <span>{p.Perfil.Name}</span>
@@ -31,7 +31,7 @@ templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
                     <span>{agenda.Date.Format("02/01/2006 15:04")}</span>
                   </span>
 
-                  <form method="POST" action={ templ.URL(fmt.Sprintf("/me/agenda/patient/%d", agenda.ID)) }>
+                  <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/me/agenda/patient/%d", agenda.ID)) } hx-target="#toast" hx-swap="innerHTML">
                     <button type="submit">Desmarcar Consulta</button>
                   </form>
                 </div>

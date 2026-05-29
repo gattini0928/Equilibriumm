@@ -15,6 +15,31 @@ body {
     line-height: 1.4;
 }
 
+#toast {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  min-width: 220px;
+  text-align: center;
+}
+
+.toast {
+  display: inline-block;
+  padding: 0.9rem 1.2rem;
+  border-radius: 10px;
+  background: #163d2b;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.toast.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
 header {
     background-color: #134040;
     font-family: 'Playfair Display', serif;

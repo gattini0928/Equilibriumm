@@ -8,6 +8,7 @@ import (
 templ DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) {
   @Layout("Perfil", data.IsAuth, []string{"profile.css"}) {
     <main class="doctor-profile-page">
+      <div id="toast"></div>
       <section class="card doctor">
         <h2>Suas informações</h2>
         <img src={p.Perfil.Image} alt="Foto de Perfil do Doutor" />
@@ -35,7 +36,7 @@ templ DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) {
         <div class="no-agenda">
           <h2>Agendas</h2>
           <span>{data.Messages["agendas"]}</span>
-          <form method="POST" action="/me/agenda">
+          <form method="POST" hx-post="/me/agenda" hx-target="#toast" hx-swap="innerHTML">
             <input type="date" name="date" placeholder="Data" required>
             <input type="time" name="hour" placeholder="09:00" required>
             <button type="submit">Adicionar Agenda</button>
@@ -43,7 +44,7 @@ templ DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) {
 
           <div class="price-container">
             <span class="price">R${fmt.Sprintf("%.2f", p.Perfil.Price)}</span>
-            <form method="POST" action="/me/price">
+            <form method="POST" hx-post="/me/price" hx-target="#toast" hx-swap="innerHTML">
               <input type="number" step="0.01" name="price" placeholder="Preço da Consulta" required>
               <button type="submit">Atualizar Preço</button>
             </form>
@@ -59,14 +60,14 @@ templ DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) {
                 <span class="date">
                   <span>{agenda.Date.Format("02/01/2006 15:04")}</span>
                 </span>
-                <form method="POST" action={ templ.URL(fmt.Sprintf("/me/agenda/%d", agenda.ID)) }>
+                <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/me/agenda/%d", agenda.ID)) } hx-target="#toast" hx-swap="innerHTML">
                   <button type="submit">Deletar</button>
                 </form>
               </div>
             </div>
           }
 
-          <form method="POST" action="/me/agenda">
+          <form method="POST" hx-post="/me/agenda" hx-target="#toast" hx-swap="innerHTML">
             <input type="date" name="date" placeholder="Data" required>
             <input type="time" name="hour" placeholder="09:00" required>
             <button type="submit">Adicionar Agenda</button>
@@ -74,7 +75,7 @@ templ DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) {
 
           <div class="price-container">
             <span class="price">R${fmt.Sprintf("%.2f", p.Perfil.Price)}</span>
-            <form method="POST" action="/me/price">
+            <form method="POST" hx-post="/me/price" hx-target="#toast" hx-swap="innerHTML">
               <input type="number" step="0.01" name="price" placeholder="Preço da Consulta">
               <button type="submit">Atualizar Preço</button>
             </form>
@@ -97,7 +98,7 @@ templ DoctorProfilePage(data models.PerfilView, p models.DoctorDashboard) {
                 <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/from-agenda/%d/start", agenda.ID)) }>
                     <button type="submit">Iniciar Consulta</button>
                 </form>
-                <form method="POST" action={ templ.URL(fmt.Sprintf("/me/agenda/professional/%d", agenda.ID)) }>
+                <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/me/agenda/professional/%d", agenda.ID)) } hx-target="#toast" hx-swap="innerHTML">
                   <button type="submit">Desmarcar Consulta</button>
                 </form>
               </div>

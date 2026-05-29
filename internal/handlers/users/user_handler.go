@@ -685,6 +685,11 @@ func (h *UserHandler) HandleAddAgenda(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if r.Header.Get("HX-Request") == "true" {
+		w.Write([]byte(`<span class="toast success">Agenda Criada</span>`))
+		return
+	}
+
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
 
 }
@@ -706,7 +711,12 @@ func (h *UserHandler) HandleDeleteAgenda(w http.ResponseWriter, r *http.Request)
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 		return 
 	}
-	
+
+	if r.Header.Get("HX-Request") == "true" {
+		w.Write([]byte(`<span class="toast success">Agenda deletada</span>`))
+		return
+	}
+
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
 }
 
@@ -726,6 +736,11 @@ func (h *UserHandler) HandleDeleteAgendaPatient(w http.ResponseWriter, r *http.R
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 		return 
+	}
+
+	if r.Header.Get("HX-Request") == "true" {
+		w.Write([]byte(`<span class="toast success">Consulta desmarcada</span>`))
+		return
 	}
 	
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
@@ -747,6 +762,11 @@ func (h *UserHandler) HandleDeleteAgendaProfessional(w http.ResponseWriter, r *h
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 		return 
+	}
+
+	if r.Header.Get("HX-Request") == "true" {
+		w.Write([]byte(`<span class="toast success">Consulta desmarcada</span>`))
+		return
 	}
 	
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
@@ -774,6 +794,11 @@ func (h *UserHandler) HandleUpdatePrice(w http.ResponseWriter, r *http.Request) 
 	err = h.Service.UpdatePrice(userID, price)
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+		return
+	}
+
+	if r.Header.Get("HX-Request") == "true" {
+		w.Write([]byte(`<span class="toast success">Preço da Consulta atualizado com sucesso</span>`))
 		return
 	}
 
