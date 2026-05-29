@@ -7,6 +7,20 @@
       gap: 20px;
     }
 
+#toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+}
+
+.toast {
+  padding: 0.9rem 1.2rem;
+  border-radius: 10px;
+  background: #163d2b;
+  color: white;
+}
+
     /* ===== VIDEO ===== */
 
     #meet {

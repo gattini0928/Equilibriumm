@@ -57,6 +57,8 @@ templ ConsultationPage(data models.ConsultationRoomView) {
   const api = new JitsiMeetExternalAPI(domain, options);
 </script>
 
+      <div id="toast"></div>
+
       if data.UserRole == "patient" {
         <div class="patient-view">
           <a class="end-consultation" href="/">Encerrar Consulta</a>
@@ -68,7 +70,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
           <div class="panels">
             <div class="panel">
               <h2>Anotação</h2>
-              <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+              <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML" class="form">
                 <textarea class="textarea" name="annotation"></textarea>
                 <button type="submit" class="btn">Salvar Anotação</button>
               </form>
@@ -76,7 +78,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
 
             <div class="panel">
               <h2>Livro</h2>
-              <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+              <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML" class="form">
                  <input type="text" name="author" placeholder="author">
                   <input type="text" name="title" placeholder="Título">
                 <button type="submit" class="btn">Salvar Livro</button>
@@ -93,7 +95,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
           <div class="panels">
             <div class="panel">
               <h2>Anotação</h2>
-             <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+             <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML" class="form">
                 <textarea class="textarea" name="annotation"></textarea>
                 <button type="submit" class="btn">Salvar Anotação</button>
               </form>
@@ -101,7 +103,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
 
             <div class="panel">
               <h2>Receita</h2>
-              <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+              <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML" class="form">
                 <input placeholder="Nome do remédio" class="input" name="remedy-name"/>
                 <input placeholder="Dosagem" class="input" name="remedy-dosage"/>
                 <input placeholder="Quantidade" class="input"name="remedy-quantity"/>
@@ -112,7 +114,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
 
             <div class="panel">
               <h2>Diagnóstico</h2>
-              <form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } class="form">
+              <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML"  class="form">
                  <input type="text" class="input" name="diagnosis">
                 <button type="submit" class="btn">Salvar Diagnóstico</button>
               </form>

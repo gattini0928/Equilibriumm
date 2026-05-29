@@ -923,6 +923,10 @@ func (h *UserHandler) HandleSaveConsultationInfos(w http.ResponseWriter, r *http
 			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 			return
 		}
+		if r.Header.Get("HX-Request") == "true" {
+			w.Write([]byte(`<span class="toast success">Anotação salva com sucesso</span>`))
+			return
+		}
 	}
 
 	remedyName := r.FormValue("remedy-name")
@@ -941,6 +945,10 @@ func (h *UserHandler) HandleSaveConsultationInfos(w http.ResponseWriter, r *http
 			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 			return
 		}
+		if r.Header.Get("HX-Request") == "true" {
+			w.Write([]byte(`<span class="toast success">Receita salva com sucesso</span>`))
+			return
+		}
 	}
 
 	diagnosis := r.FormValue("diagnosis")
@@ -948,6 +956,10 @@ func (h *UserHandler) HandleSaveConsultationInfos(w http.ResponseWriter, r *http
 		err = h.Service.SaveConsultationDiagnosis(userID, consultationID, diagnosis)
 		if err != nil {
 			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+		if r.Header.Get("HX-Request") == "true" {
+			w.Write([]byte(`<span class="toast success">Diagnóstico salvo com sucesso</span>`))
 			return
 		}
 	}
@@ -959,6 +971,10 @@ func (h *UserHandler) HandleSaveConsultationInfos(w http.ResponseWriter, r *http
 		err = h.Service.SaveConsultationBook(userID, consultationID, author, title)
 		if err != nil {
 			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+		if r.Header.Get("HX-Request") == "true" {
+			w.Write([]byte(`<span class="toast success">Livro salvo com sucesso</span>`))
 			return
 		}
 	}
