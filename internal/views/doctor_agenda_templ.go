@@ -42,26 +42,21 @@ func DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) templ.C
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(data.Messages["agendas"])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/profile_agenda.templ`, Line: 12, Col: 43}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_agenda.templ`, Line: 12, Col: 43}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</span><form method=\"POST\" hx-post=\"/me/agenda\" hx-target=\"#agendas-card\" hx-swap=\"outerHTML\"><input type=\"date\" name=\"date\" placeholder=\"Data\" required> <input type=\"time\" name=\"hour\" placeholder=\"09:00\" required> <button type=\"submit\">Adicionar Agenda</button></form><div id=\"price-container\" class=\"price-container\"><span class=\"price\">R$")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</span><form method=\"POST\" hx-post=\"/me/agenda\" hx-target=\"#agendas-card\" hx-swap=\"outerHTML\"><input type=\"date\" name=\"date\" placeholder=\"Data\" required> <input type=\"time\" name=\"hour\" placeholder=\"09:00\" required> <button type=\"submit\">Adicionar Agenda</button></form>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%.2f", p.Perfil.Price))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/profile_agenda.templ`, Line: 20, Col: 74}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			templ_7745c5c3_Err = DoctorPriceContainer(p).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</span><form method=\"POST\" hx-post=\"/me/price\" hx-target=\"#price-container\" hx-swap=\"outerHTML\"><input type=\"number\" step=\"0.01\" name=\"price\" placeholder=\"Preço da Consulta\" required> <button type=\"submit\">Atualizar Preço</button></form></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -75,12 +70,12 @@ func DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) templ.C
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var4 string
-				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(agenda.Date.Format("02/01/2006 15:04"))
+				var templ_7745c5c3_Var3 string
+				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(agenda.Date.Format("02/01/2006 15:04"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/profile_agenda.templ`, Line: 35, Col: 69}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_agenda.templ`, Line: 28, Col: 73}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -88,12 +83,12 @@ func DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) templ.C
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var5 string
-				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.URL(fmt.Sprintf("/me/agenda/%d", agenda.ID)))
+				var templ_7745c5c3_Var4 string
+				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(templ.URL(fmt.Sprintf("/me/agenda/%d", agenda.ID)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/profile_agenda.templ`, Line: 37, Col: 104}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_agenda.templ`, Line: 30, Col: 104}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -102,20 +97,15 @@ func DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) templ.C
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<form method=\"POST\" hx-post=\"/me/agenda\" hx-target=\"#agendas-card\" hx-swap=\"outerHTML\"><input type=\"date\" name=\"date\" placeholder=\"Data\" required> <input type=\"time\" name=\"hour\" placeholder=\"09:00\" required> <button type=\"submit\">Adicionar Agenda</button></form><div id=\"price-container\" class=\"price-container\"><span class=\"price\">R$")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<form method=\"POST\" hx-post=\"/me/agenda\" hx-target=\"#agendas-card\" hx-swap=\"outerHTML\"><input type=\"date\" name=\"date\" placeholder=\"Data\" required> <input type=\"time\" name=\"hour\" placeholder=\"09:00\" required> <button type=\"submit\">Adicionar Agenda</button></form>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var6 string
-			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%.2f", p.Perfil.Price))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/profile_agenda.templ`, Line: 51, Col: 74}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			templ_7745c5c3_Err = DoctorPriceContainer(p).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</span><form method=\"POST\" hx-post=\"/me/price\" hx-target=\"#price-container\" hx-swap=\"outerHTML\"><input type=\"number\" step=\"0.01\" name=\"price\" placeholder=\"Preço da Consulta\"> <button type=\"submit\">Atualizar Preço</button></form></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

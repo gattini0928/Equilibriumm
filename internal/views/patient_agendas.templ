@@ -1,0 +1,33 @@
+package views
+
+import (
+    "fmt"
+    "github.com/gattini0928/Equilibrium/internal/models"
+  )
+
+templ PatientAgendasList(data models.PerfilView, p models.PatientDashboard) {
+	<div id="patient-reserved-agendas" class="card">
+		<h2>Horários Reservados</h2>
+
+		if len(p.AgendasReserved) == 0 {
+			<span>{data.Messages["reserved_agendas"]}</span>
+		} else {
+			for _, agenda := range p.AgendasReserved {
+				<div class="schedule-list">
+					<div class="schedule-item">
+						<span class="date">
+							<span>{agenda.Date.Format("02/01/2006 15:04")}</span>
+						</span>
+
+						<form method="POST"
+							hx-post={ templ.URL(fmt.Sprintf("/me/agenda/patient/%d", agenda.ID)) }
+							hx-target="#patient-reserved-agendas"
+							hx-swap="outerHTML">
+							<button type="submit">Desmarcar Consulta</button>
+						</form>
+					</div>
+				</div>
+			}
+		}
+	</div>
+}

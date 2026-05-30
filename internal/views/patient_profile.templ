@@ -18,27 +18,7 @@ templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
           <span>Diagnóstico: {p.Perfil.CurrentDiagnosis}</span>
         </div>
 
-        <div class="card">
-          <h2>Horários Reservados</h2>
-
-          if len(p.AgendasReserved) == 0 {
-            <span>{data.Messages["reserved_agendas"]}</span>
-          } else {
-            for _, agenda := range p.AgendasReserved {
-              <div class="schedule-list">
-                <div class="schedule-item">
-                  <span class="date">
-                    <span>{agenda.Date.Format("02/01/2006 15:04")}</span>
-                  </span>
-
-                  <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/me/agenda/patient/%d", agenda.ID)) } hx-target="#toast" hx-swap="innerHTML">
-                    <button type="submit">Desmarcar Consulta</button>
-                  </form>
-                </div>
-              </div>
-            }
-          }
-        </div>
+        @PatientAgendasList(data, p)
 
         <div class="card">
           <h2>Consultas</h2>

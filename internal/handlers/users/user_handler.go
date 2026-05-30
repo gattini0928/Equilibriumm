@@ -694,7 +694,7 @@ func (h *UserHandler) HandleAddAgenda(w http.ResponseWriter, r *http.Request) {
 
 		p, ok := perfil.(models.DoctorDashboard)
 		if !ok {
-			utils.RenderStatusPage(w, r, fmt.Errorf("perfil inválido"), http.StatusInternalServerError)
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 			return
 		}
 
@@ -737,7 +737,19 @@ func (h *UserHandler) HandleDeleteAgenda(w http.ResponseWriter, r *http.Request)
 	}
 
 	if r.Header.Get("HX-Request") == "true" {
-		w.Write([]byte(`<span class="toast success">Agenda deletada</span>`))
+		perfil, err := h.Service.Perfil(userID)
+		if err != nil {
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+
+		p, ok := perfil.(models.DoctorDashboard)
+		if !ok {
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+
+		_ = views.DoctorAgendasList(p).Render(r.Context(), w)
 		return
 	}
 
@@ -763,10 +775,34 @@ func (h *UserHandler) HandleDeleteAgendaPatient(w http.ResponseWriter, r *http.R
 	}
 
 	if r.Header.Get("HX-Request") == "true" {
-		w.Write([]byte(`<span class="toast success">Consulta desmarcada</span>`))
+		perfil, err := h.Service.Perfil(userID)
+		if err != nil {
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+
+		p, ok := perfil.(models.PatientDashboard)
+		if !ok {
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+
+		messages := map[string]string{}
+		if len(p.AgendasReserved) == 0 {
+			messages["reserved_agendas"] = "Você ainda não tem nenhum horário reservado"
+		}
+
+		data := models.PerfilView{
+			ViewData: models.ViewData{
+				IsAuth: middleware.IsAuthenticated(r),
+			},
+			Messages: messages,
+		}
+
+		_ = views.PatientAgendasList(data, p).Render(r.Context(), w)
 		return
 	}
-	
+
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
 }
 
@@ -789,10 +825,34 @@ func (h *UserHandler) HandleDeleteAgendaProfessional(w http.ResponseWriter, r *h
 	}
 
 	if r.Header.Get("HX-Request") == "true" {
-		w.Write([]byte(`<span class="toast success">Consulta desmarcada</span>`))
+		perfil, err := h.Service.Perfil(userID)
+		if err != nil {
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+
+		p, ok := perfil.(models.DoctorDashboard)
+		if !ok {
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+
+		messages := map[string]string{}
+		if len(p.AgendasReserved) == 0 {
+			messages["reserved_agendas"] = "Você ainda não tem nenhum horário reservado"
+		}
+
+		data := models.PerfilView{
+			ViewData: models.ViewData{
+				IsAuth: middleware.IsAuthenticated(r),
+			},
+			Messages: messages,
+		}
+
+		_ = views.DoctorReservedAgendasList(data, p).Render(r.Context(), w)
 		return
 	}
-	
+
 	http.Redirect(w, r, "/me", http.StatusSeeOther)
 }
 
@@ -818,6 +878,23 @@ func (h *UserHandler) HandleUpdatePrice(w http.ResponseWriter, r *http.Request) 
 	err = h.Service.UpdatePrice(userID, price)
 	if err != nil {
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+		return
+	}
+
+	if r.Header.Get("HX-Request") == "true" {
+		perfil, err := h.Service.Perfil(userID)
+		if err != nil {
+			utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
+			return
+		}
+
+		p, ok := perfil.(models.DoctorDashboard)
+		if !ok {
+			utils.RenderStatusPage(w, r, fmt.Errorf("perfil inválido"), http.StatusInternalServerError)
+			return
+		}
+
+		_ = views.DoctorPriceContainer(p).Render(r.Context(), w)
 		return
 	}
 
