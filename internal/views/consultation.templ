@@ -61,7 +61,10 @@ templ ConsultationPage(data models.ConsultationRoomView) {
 
       if data.UserRole == "patient" {
         <div class="patient-view">
-          <a class="end-consultation" href="/">Encerrar Consulta</a>
+          <a class="end-consultation"
+            href={ templ.URL(fmt.Sprintf("/consultations/consultation-detail/%d", data.Consultation.ID)) }>
+            Encerrar Consulta
+          </a>
         </div>
       }
 
@@ -86,7 +89,10 @@ templ ConsultationPage(data models.ConsultationRoomView) {
             </div>
           </div>
 
-          <a class="end-consultation" href="/">Encerrar Consulta</a>
+          <a class="end-consultation"
+            href={ templ.URL(fmt.Sprintf("/consultations/consultation-detail/%d", data.Consultation.ID)) }>
+            Encerrar Consulta
+          </a>
         </div>
       }
 
@@ -120,7 +126,10 @@ templ ConsultationPage(data models.ConsultationRoomView) {
               </form>
             </div>
 
-          <a class="end-consultation" href="/me">Encerrar Consulta</a>
+         <a class="end-consultation"
+            href={ templ.URL(fmt.Sprintf("/consultations/consultation-detail/%d", data.Consultation.ID)) }>
+            Encerrar Consulta
+          </a>
         </div>
       }
     </main>
