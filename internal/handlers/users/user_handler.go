@@ -494,6 +494,7 @@ func (h *UserHandler) HandlePerfil(w http.ResponseWriter, r *http.Request) {
 		utils.RenderStatusPage(w, r, err, http.StatusInternalServerError)
 		return
 	}
+	
 
 	switch p := perfil.(type) {
 	case models.PatientDashboard:
@@ -510,7 +511,7 @@ func (h *UserHandler) HandlePerfil(w http.ResponseWriter, r *http.Request) {
 		if len(p.AgendasReserved) == 0 {
 			messages["reserved_agendas"] = "Você ainda não tem nenhum horário reservado"
 		}
-
+		
 		data.Messages = messages
 		_ = views.PatientProfilePage(data, p).Render(r.Context(), w)
 

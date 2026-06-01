@@ -115,6 +115,7 @@ type Agenda struct {
 	PatientName    string
 	Date time.Time
 	Reserved       bool  
+	ActiveConsultationID int
 }
 
 type DoctorWithUser struct {
@@ -147,6 +148,7 @@ type PatientDashboard struct {
 	Psychiatrist *DoctorWithUser
 	AgendasReserved []Agenda
 	Consultations []Consultation
+	ActiveConsultationID int
 }
 
 type DoctorDashboard struct {

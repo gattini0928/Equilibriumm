@@ -498,6 +498,14 @@ func (s *UserService) Perfil(userID int) (any, error) {
 			return nil, err
 		}
 
+		for i, agenda := range agendasReserved {
+			activeID, err := s.Repo.GetPatientConsultationStarted(patientID, agenda.ProfessionalID)
+			if err != nil {
+				return nil, err
+			}
+			agendasReserved[i].ActiveConsultationID = activeID
+		}
+
 		perfil, err := s.Repo.GetPatientPerfil(userID)
 		if err != nil {
 			return models.PatientDashboard{}, err
@@ -601,7 +609,6 @@ func (s *UserService) Perfil(userID int) (any, error) {
 }
 
 func (s *UserService) ReserveTherapistAgenda(patientUserID, therapistID, agendaID int) error {
-
 	user, err := s.Repo.GetUserByID(patientUserID)
 	if err != nil {
 		return err

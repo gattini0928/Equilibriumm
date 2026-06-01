@@ -921,6 +921,33 @@ func (r *UserRepository) GetAgendaByID(agendaID int) (models.Agenda, error) {
 	return a, nil
 }
 
+func (r *UserRepository) GetPatientConsultationStarted(patientID, doctorID int) (int, error) {
+	query := `
+	SELECT c.id
+	FROM consultations c
+	WHERE c.patient_id = $1
+	AND (
+		c.therapist_id = $2
+		OR c.psychiatrist_id = $2
+	)
+	ORDER BY c.id DESC
+	LIMIT 1
+	`
+
+	var id int
+
+	err := r.DB.QueryRow(query, patientID, doctorID).Scan(&id)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return 0, nil
+		}
+		return 0, err
+	}
+
+	return id, nil
+}
+
+
 func (r *UserRepository) GetTherapistPrice(therapistID int) (float64, error) {
 	var price sql.NullFloat64
 

@@ -57,6 +57,9 @@ templ ConsultationPage(data models.ConsultationRoomView) {
   const api = new JitsiMeetExternalAPI(domain, options);
 </script>
 
+    <p>DEBUG consultation ID: {fmt.Sprintf("%d", data.Consultation.ID)}</p>
+    <p>DEBUG user role: {data.UserRole}</p>
+
       <div id="toast"></div>
 
       if data.UserRole == "patient" {
@@ -68,7 +71,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
         </div>
       }
 
-      if data.Consultation.DoctorRole == "therapist" {
+      if data.UserRole != "patient" && data.Consultation.DoctorRole == "therapist" {
         <div class="therapist-view">
           <div class="panels">
             <div class="panel">
@@ -96,7 +99,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
         </div>
       }
 
-      if data.Consultation.DoctorRole == "psychiatrist" {
+      if data.UserRole != "patient" && data.Consultation.DoctorRole == "psychiatrist" {
         <div class="psychiatrist-view">
           <div class="panels">
             <div class="panel">
