@@ -7,10 +7,10 @@ import (
 
 templ DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) {
     if len(p.Agendas) == 0 {
-        <div id="agendas-card" class="no-agenda">
+        <div id="no-agendas-card" class="no-agenda">
             <h2>Agendas</h2>
             <span>{data.Messages["agendas"]}</span>
-            <form method="POST" hx-post="/me/agenda" hx-target="#agendas-card" hx-swap="outerHTML">
+            <form method="POST" hx-post="/me/agenda" hx-target="#no-agendas-card" hx-swap="outerHTML">
                 <input type="date" name="date" placeholder="Data" required>
                 <input type="time" name="hour" placeholder="09:00" required>
                 <button type="submit">Adicionar Agenda</button>

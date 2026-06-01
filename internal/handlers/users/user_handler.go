@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"time"
 	"strings"
-	"log"
 
 	"github.com/gattini0928/Equilibrium/internal/configs"
 	"github.com/gattini0928/Equilibrium/internal/models"
@@ -254,7 +253,6 @@ func (h *UserHandler) HandleCompleteTherapist(w http.ResponseWriter, r *http.Req
 		var price float64
 		price, err := strconv.ParseFloat(r.FormValue("price"), 64)
 		if err != nil {
-			log.Println(err)
 			form.General = "Erro ao completar informações"
 			data.Form = form
 			_ = views.CompleteTherapistInfoPage(data).Render(r.Context(), w)
@@ -286,7 +284,6 @@ func (h *UserHandler) HandleCompleteTherapist(w http.ResponseWriter, r *http.Req
 
 		err = h.Service.CompleteTherapistSignUp(userID, specialty, description, price)
 		if err != nil {
-			log.Println(err)
 			form.General = "Erro ao completar informações"
 			data.Form = form
 			_ = views.CompleteTherapistInfoPage(data).Render(r.Context(), w)
@@ -334,7 +331,6 @@ func (h *UserHandler) HandleCompletePsychiatrist(w http.ResponseWriter, r *http.
 		var price float64
 		price, err := strconv.ParseFloat(r.FormValue("price"), 64)
 		if err != nil {
-			log.Println(err)
 			form.General = "Erro ao completar informações"
 			data.Form = form
 			_ = views.CompletePsychiatristInfoPage(data).Render(r.Context(), w)
@@ -366,7 +362,6 @@ func (h *UserHandler) HandleCompletePsychiatrist(w http.ResponseWriter, r *http.
 
 		err = h.Service.CompletePsychiatristSignUp(userID, crm, description, price)
 		if err != nil {
-			log.Println("erro no service:", err)
 			form.General = "Erro ao completar informações"
 			data.Form = form
 			_ = views.CompletePsychiatristInfoPage(data).Render(r.Context(), w)
@@ -432,7 +427,7 @@ func (h *UserHandler) HandleLogin(w http.ResponseWriter, r *http.Request) {
 
 				form.General = "Email ou senha inválidos"
 			} else {
-				form.General = "Erro interno"
+				form.General = "Erro ao fazer Login tente novamente"
 			}
 
 			data.Form = form
@@ -749,7 +744,19 @@ func (h *UserHandler) HandleDeleteAgenda(w http.ResponseWriter, r *http.Request)
 			return
 		}
 
-		_ = views.DoctorAgendasList(p).Render(r.Context(), w)
+		messages := map[string]string{}
+		if len(p.Agendas) == 0 {
+			messages["agendas"] = "Você ainda não tem nenhuma agenda"
+		}
+
+		data := models.PerfilView{
+			ViewData: models.ViewData{
+				IsAuth: middleware.IsAuthenticated(r),
+			},
+			Messages: messages,
+		}
+		
+		_ = views.DoctorAgendasCard(data,p).Render(r.Context(), w)
 		return
 	}
 

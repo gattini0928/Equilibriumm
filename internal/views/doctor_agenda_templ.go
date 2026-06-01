@@ -35,7 +35,7 @@ func DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) templ.C
 		}
 		ctx = templ.ClearChildren(ctx)
 		if len(p.Agendas) == 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"agendas-card\" class=\"no-agenda\"><h2>Agendas</h2><span>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"no-agendas-card\" class=\"no-agenda\"><h2>Agendas</h2><span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -48,7 +48,7 @@ func DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) templ.C
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</span><form method=\"POST\" hx-post=\"/me/agenda\" hx-target=\"#agendas-card\" hx-swap=\"outerHTML\"><input type=\"date\" name=\"date\" placeholder=\"Data\" required> <input type=\"time\" name=\"hour\" placeholder=\"09:00\" required> <button type=\"submit\">Adicionar Agenda</button></form>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</span><form method=\"POST\" hx-post=\"/me/agenda\" hx-target=\"#no-agendas-card\" hx-swap=\"outerHTML\"><input type=\"date\" name=\"date\" placeholder=\"Data\" required> <input type=\"time\" name=\"hour\" placeholder=\"09:00\" required> <button type=\"submit\">Adicionar Agenda</button></form>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
