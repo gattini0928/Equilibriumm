@@ -17,7 +17,7 @@ templ Layout(title string, isAuth bool, cssFiles []string) {
     </head>
     <body>
       <header>
-        <div class="img-wrapper">
+        <div class="img-wrapper-nav">
           <a href="/">
             <img src="/static/images/equilibriumclean.png" alt="Equilibrium Logo" class="logo">
           </a>
@@ -55,6 +55,9 @@ templ Layout(title string, isAuth bool, cssFiles []string) {
       </header>
 
       { children... }
+      <footer>
+        <p>© 2026 Equilibriumm — Todos os direitos reservados.</p>
+      </footer>
       <script src="/js/toast.js"></script>
     </body>
   </html>

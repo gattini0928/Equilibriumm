@@ -10,6 +10,11 @@ html {
 }
 
 body {
+    background: linear-gradient(
+        180deg,
+        #c8eedc 0%,
+        #ffffff 100%
+    );
     font-size: 1.6rem;
     color: #0d0f14;
     line-height: 1.4;
@@ -54,7 +59,7 @@ header {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-.img-wrapper {
+.img-wrapper-nav {
     display: flex;
     align-items: center;
 }
@@ -103,4 +108,15 @@ nav {
 
 main {
     font-family: 'Lora', serif;  
+}
+
+footer {
+    font-size: 1.2rem;
+    padding: 1rem;
+    margin: 0 auto;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    width: 50%;
+    border-radius: 0.5rem;
+    font-weight: 600;
 }

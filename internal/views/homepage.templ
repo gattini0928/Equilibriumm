@@ -2,8 +2,30 @@ package views
 
 templ HomepagePage(isAuth bool) {
   @Layout("Equilibrium", isAuth, []string{"homepage.css"}) {
-    <div class="content">
-      <h1>Equilibrium</h1>
+    <section class="hero">
+      <div class="texts">
+          <h1>Equilibriumm - Sistema de Consultas por Video Conferência</h1>
+        <span class="hero-text">
+            Encontre equilíbrio em meio ao caos.
+            Porque buscar ajuda não deveria ser complicado.
+            Conectamos <strong>pacientes</strong>, <strong>terapeutas</strong> e <strong>psiquiatras</strong> em um ambiente intuitivo para agendamento, acompanhamento e consultas online.
+        </span>
+        <div class="cta-links">
+            <div class="link-icon">
+                <i class="fa-solid fa-user-doctor" id="nav-icon"></i>
+                <a href="/therapists" class="nav-link">Terapeutas</a>
+            </div>
+            <div class="link-icon">
+                <i class="fa-solid fa-user-doctor" id="nav-icon"></i>
+                <a href="/psychiatrists" class="nav-link">Psiquiatras</a>
+            </div>
+        </div>
     </div>
+    <div class="img-wrapper">
+        <img src="/static/images/hero-img.jpg" alt="Hero Imagem">
+    </div>
+    </section>
+
+    
   }
 }

@@ -65,7 +65,7 @@ func Layout(title string, isAuth bool, cssFiles []string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</head><body><header><div class=\"img-wrapper\"><a href=\"/\"><img src=\"/static/images/equilibriumclean.png\" alt=\"Equilibrium Logo\" class=\"logo\"></a></div><nav>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</head><body><header><div class=\"img-wrapper-nav\"><a href=\"/\"><img src=\"/static/images/equilibriumclean.png\" alt=\"Equilibrium Logo\" class=\"logo\"></a></div><nav>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -88,7 +88,7 @@ func Layout(title string, isAuth bool, cssFiles []string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<script src=\"/js/toast.js\"></script></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<footer><p>© 2026 Equilibriumm — Todos os direitos reservados.</p></footer><script src=\"/js/toast.js\"></script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
