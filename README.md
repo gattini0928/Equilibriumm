@@ -45,7 +45,7 @@ O projeto foi criado com foco em aprendizado, prática de arquitetura web, auten
 
 ```bash
 git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+cd Equilibriumm
 go mod tidy
 ```
 
