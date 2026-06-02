@@ -1,7 +1,6 @@
 .env
 tmp/
 *.exe
-translate.py
 static/uploads/
 
 
