@@ -32,7 +32,7 @@ templ ConsultationDetailPage(consultation models.Consultation, isAuth bool) {
                     <h3>Anotação</h3>
 
                     if consultation.Annotation != "" {
-                        <p>{consultation.Annotation}</p>
+                        <span>{consultation.Annotation}</span>
                     } else {
                         <span>Nenhuma anotação adicionada.</span>
                     }
@@ -46,7 +46,7 @@ templ ConsultationDetailPage(consultation models.Consultation, isAuth bool) {
                             <span>Nenhum livro foi adicionado nesta consulta.</span>
                         } else {
                             for _, book := range consultation.Books {
-                                <p>{book.Title}</p>
+                                <span>{book.Title}</span>
                             }
                         }
                     </div>
@@ -61,9 +61,9 @@ templ ConsultationDetailPage(consultation models.Consultation, isAuth bool) {
                         } else {
                             for _, remedy := range consultation.Remedies {
                                 <div class="remedy">
-                                    <p>{remedy.Name}</p>
-                                    <p>{remedy.Dosage}</p>
-                                    <p>{remedy.Quantity}</p>
+                                    <span>{remedy.Name}</span>
+                                    <span>{remedy.Dosage}</span>
+                                    <span>{remedy.Quantity}</span>
                                 </div>
                             }
                         }
@@ -73,7 +73,7 @@ templ ConsultationDetailPage(consultation models.Consultation, isAuth bool) {
                         <h3>Diagnóstico</h3>
 
                         if consultation.Diagnosis != "" {
-                            <p>{consultation.Diagnosis}</p>
+                            <span>{consultation.Diagnosis}</span>
                         } else {
                             <span>Nenhum diagnóstico adicionado nesta consulta.</span>
                         }

@@ -130,6 +130,7 @@ footer {
       border-radius: 0.8rem;
 
       transition: 0.2s;
+      cursor: pointer;
     }
 
     button:hover {

@@ -12,15 +12,11 @@
 
 .form-page h2 {
   color: #0d0f14;
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
   text-align: center;
 }
-
-/* ============================================
-   GRUPOS DE INPUT + LABEL
-   ============================================ */
 
 .inputs-labels {
   margin-bottom: 1.5rem;
@@ -30,19 +26,15 @@
 
 .inputs-labels label {
   color: #0d0f14;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   display: block;
 }
 
-/* ============================================
-   INPUTS
-   ============================================ */
-
 .inputs-labels input {
   padding: 12px 14px;
-  border: 2px solid #4a5568;
+  border: 2px solid #73d485;
   border-radius: 8px;
   font-size: 14px;
   color: #0d0f14;
@@ -64,13 +56,9 @@
   background: white;
 }
 
-/* ============================================
-   MENSAGENS DE ERRO
-   ============================================ */
-
 .inputs-labels .error {
   color: #e53e3e;
-  font-size: 12px;
+  font-size: 1.2rem;
   margin-top: 0.4rem;
   display: block;
   font-weight: 500;
@@ -78,42 +66,35 @@
 
 .error {
   color: #e53e3e;
-  font-size: 13px;
-  padding: 10px 12px;
+  font-size: 1.3rem;
+  padding: 1rem 1.2rem;
   background: #fff5f5;
   border-left: 3px solid #e53e3e;
-  border-radius: 4px;
+  border-radius: 0.4rem;
   margin-bottom: 1rem;
   display: block;
 }
-
-/* ============================================
-   MENSAGENS GERAIS (sucesso/info)
-   ============================================ */
 
 .message {
   color: #134040;
   background: #d4f1f4;
   border-left: 3px solid #95f7b1;
-  padding: 12px 14px;
-  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  border-radius: 0.6rem;
   margin-bottom: 1.5rem;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 500;
 }
 
-/* ============================================
-   BOTÕES
-   ============================================ */
 
 button[type="submit"] {
   width: 100%;
-  padding: 12px 20px;
+  padding: 1.2rem 2rem;
   background: #95f7b1;
   color: #134040;
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -141,7 +122,7 @@ button[type="submit"]:disabled {
   margin-bottom: 1.5rem;
   padding: 1rem;
   background: #f8f9fa;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   border: 1px solid #e0e4e8;
 }
 
@@ -152,7 +133,7 @@ button[type="submit"]:disabled {
   cursor: pointer;
   font-weight: 500;
   color: #0d0f14;
-  font-size: 14px;
+  font-size: 1.4rem;
   transition: color 0.2s ease;
 }
 
@@ -164,17 +145,16 @@ button[type="submit"]:disabled {
   color: #95f7b1;
 }
 
-/* Hide original radio */
 .role-options input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
   border: 2px solid #4a5568;
   border-radius: 50%;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 1rem;
   background: white;
   transition: all 0.2s ease;
   position: relative;
@@ -193,12 +173,11 @@ button[type="submit"]:disabled {
   box-shadow: 0 0 0 3px rgba(149, 247, 177, 0.15);
 }
 
-/* Inner dot quando checked */
 .role-options input[type="radio"]:checked::after {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 0.6rem;
+  height: 0.6rem;
   background: #134040;
   border-radius: 50%;
   top: 50%;
@@ -206,16 +185,11 @@ button[type="submit"]:disabled {
   transform: translate(-50%, -50%);
 }
 
-/* Focus state */
 .role-options input[type="radio"]:focus {
   outline: none;
   border-color: #cae456;
   box-shadow: 0 0 0 3px rgba(202, 228, 86, 0.2);
 }
-
-/* ============================================
-   FILE INPUT
-   ============================================ */
 
 .inputs-labels input[type="file"] {
   padding: 0;
@@ -223,7 +197,7 @@ button[type="submit"]:disabled {
   background: white;
   cursor: pointer;
   height: auto;
-  padding: 20px 14px;
+  padding: 2rem 1.4rem;
   text-align: center;
   transition: all 0.2s ease;
 }
@@ -232,12 +206,12 @@ button[type="submit"]:disabled {
   background: #95f7b1;
   color: #134040;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.6rem;
   cursor: pointer;
   font-weight: 600;
-  font-size: 13px;
-  margin-right: 12px;
+  font-size: 1.3rem;
+  margin-right: 1.2rem;
   transition: all 0.2s ease;
 }
 
@@ -264,7 +238,7 @@ button[type="submit"]:disabled {
   }
 
   .form-page h2 {
-    font-size: 20px;
+    font-size: 2rem;
     margin-bottom: 1.25rem;
   }
 
@@ -273,8 +247,8 @@ button[type="submit"]:disabled {
   }
 
   .inputs-labels input {
-    font-size: 16px;
-    padding: 14px 14px;
+    font-size: 1.6rem;
+    padding: 1.4rem 1.4rem;
   }
 
   .role-options {
@@ -286,6 +260,6 @@ button[type="submit"]:disabled {
   }
 
   .inputs-labels input[type="file"] {
-    padding: 16px 10px;
+    padding: 1.6rem 1rem;
   }
 }

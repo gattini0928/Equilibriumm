@@ -11,8 +11,10 @@ templ DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) {
             <h2>Agendas</h2>
             <span>{data.Messages["agendas"]}</span>
             <form method="POST" hx-post="/me/agenda" hx-target="#no-agendas-card" hx-swap="outerHTML">
-                <input type="date" name="date" placeholder="Data" required>
-                <input type="time" name="hour" placeholder="09:00" required>
+                <div class="inputs">
+                    <input type="date" name="date" placeholder="Data" class="agenda-input" required>
+                    <input type="time" name="hour" placeholder="09:00" class="agenda-input" required>
+                </div>
                 <button type="submit">Adicionar Agenda</button>
             </form>
 
@@ -35,8 +37,10 @@ templ DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) {
             }
 
             <form method="POST" hx-post="/me/agenda" hx-target="#agendas-card" hx-swap="outerHTML">
-                <input type="date" name="date" placeholder="Data" required>
-                <input type="time" name="hour" placeholder="09:00" required>
+                <div class="inputs">
+                    <input type="date" name="date" placeholder="Data" class="agenda-input" required>
+                    <input type="time" name="hour" placeholder="09:00" class="agenda-input" required>
+                </div>
                 <button type="submit">Adicionar Agenda</button>
             </form>
 

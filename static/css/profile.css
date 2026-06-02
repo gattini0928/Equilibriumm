@@ -57,12 +57,12 @@
     .schedule-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 1.2rem;
     }
 
     .schedule-item {
-      padding: 12px;
-      border-radius: 10px;
+      padding: 1.2rem;
+      border-radius: 1rem;
 
       display: flex;
       justify-content: space-between;
@@ -76,7 +76,7 @@
 
     .agenda-actions {
       display: flex;
-      gap: 8px;
+      gap: 0.8rem;
     }
 
     .delete-btn-patient {
@@ -133,6 +133,22 @@
     .patient-card a:hover, .consultation-card a:hover {
       background: #cae456;
     }
+
+    .consultation-detail-link {
+        text-decoration: none;
+      background: #95f7b1;
+      color: #134040;
+
+      padding: 1rem 1.4rem;
+      border-radius: 0.8rem;
+
+      transition: 0.2s;
+    }
+
+    .consultation-detail-link {
+      background: #cae456;
+    }
+
     .consultation-card {
       display: flex;
       flex-direction: column;
@@ -147,18 +163,18 @@
 
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 1rem;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 2rem;
     }
 
     .card {
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 1.6rem;
+      padding: 1.6rem;
 
       display: flex;
       flex-direction: column;
@@ -179,12 +195,12 @@
     }
 
     .consultation {
-      padding: 10px;
-      border-radius: 10px;
+      padding: 1rem;
+      border-radius: 1rem;
 
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 0.6rem;
     }
 
     .professional-card img {
@@ -239,3 +255,45 @@
       background: #cae456;
     }
 
+.reserved-agendas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.form-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.agenda-input {
+  width: 100%;
+  padding: 1rem 1.4rem;
+  border: 1px solid #49f86c;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  color: #1f2937;
+  background: #d2ffdf;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.agenda-input:focus {
+  border-color: #31d94a;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.agenda-input::placeholder {
+  color: #9ca3af;
+}

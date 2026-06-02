@@ -15,7 +15,11 @@ templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
           <span>{p.Perfil.Name}</span>
           <span>{p.Perfil.Email}</span>
           <span>{p.Perfil.Age} anos</span>
-          <span>Diagnóstico: {p.Perfil.CurrentDiagnosis}</span>
+          if p.Perfil.CurrentDiagnosis == "" {
+            <span>Você ainda não possui um diagnóstico</span>
+          } else {
+            <span>Diagnóstico: {p.Perfil.CurrentDiagnosis}</span>
+          }
         </div>
 
         @PatientAgendasList(data, p)
@@ -39,7 +43,7 @@ templ PatientProfilePage(data models.PerfilView, p models.PatientDashboard) {
 
                 <span>{consultation.Date.Format("02/01/2006 15:04")}</span>
 
-                <a href={ templ.URL(fmt.Sprintf("consultations/consultation-detail/%d", consultation.ID)) }>Ver Detalhes</a>
+                <a href={ templ.URL(fmt.Sprintf("consultations/consultation-detail/%d", consultation.ID)) } class="consultation-detail-link">Ver Detalhes</a>
               </div>
             }
           }

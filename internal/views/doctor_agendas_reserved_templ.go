@@ -58,7 +58,7 @@ func DoctorReservedAgendasList(data models.PerfilView, p models.DoctorDashboard)
 			}
 		} else {
 			for _, agenda := range p.AgendasReserved {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"schedule-list\"><div class=\"schedule-item\"><span class=\"date\"><span>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"schedule-list\"><div class=\"schedule-item reserved-agendas\"><span class=\"date\"><span>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -84,14 +84,14 @@ func DoctorReservedAgendasList(data models.PerfilView, p models.DoctorDashboard)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</span><form method=\"POST\" action=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</span><div class=\"form-btns\"><form method=\"POST\" action=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 templ.SafeURL
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/consultations/from-agenda/%d/start", agenda.ID)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_agendas_reserved.templ`, Line: 24, Col: 107}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_agendas_reserved.templ`, Line: 25, Col: 108}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -104,13 +104,13 @@ func DoctorReservedAgendasList(data models.PerfilView, p models.DoctorDashboard)
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(templ.URL(fmt.Sprintf("/me/agenda/professional/%d", agenda.ID)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_agendas_reserved.templ`, Line: 29, Col: 80}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_agendas_reserved.templ`, Line: 29, Col: 81}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" hx-target=\"#doctor-reserved-agendas\" hx-swap=\"outerHTML\"><button type=\"submit\">Desmarcar Consulta</button></form></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" hx-target=\"#doctor-reserved-agendas\" hx-swap=\"outerHTML\"><button type=\"submit\" class=\"delete-btn\">Desmarcar Consulta</button></form></div></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

@@ -12,10 +12,14 @@ templ ConsultationPage(data models.ConsultationRoomView) {
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script src="https://meet.jit.si/external_api.js"></script>
     <link rel="stylesheet" href="/static/css/consultation.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
 
   <body>
-    <main>
+    <main class="consultation-page">
       if data.UserRole == "patient" {
         if data.Consultation.DoctorRole == "therapist" {
           <h1>Consulta com o terapeuta {data.Consultation.DoctorName}</h1>
@@ -73,7 +77,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
             <div class="panel">
               <h2>Anotação</h2>
               <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML" class="form">
-                <textarea class="textarea" name="annotation"></textarea>
+                <textarea class="textarea" name="annotation" placeholder="Anotação"></textarea>
                 <button type="submit" class="btn">Salvar Anotação</button>
               </form>
             </div>
@@ -81,8 +85,8 @@ templ ConsultationPage(data models.ConsultationRoomView) {
             <div class="panel">
               <h2>Livro</h2>
               <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML" class="form">
-                 <input type="text" name="author" placeholder="author">
-                  <input type="text" name="title" placeholder="Título">
+                 <input type="text" name="author" class="input" placeholder="Autor">
+                  <input type="text" name="title" class="input" placeholder="Título">
                 <button type="submit" class="btn">Salvar Livro</button>
               </form>
             </div>
@@ -101,7 +105,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
             <div class="panel">
               <h2>Anotação</h2>
              <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML" class="form">
-                <textarea class="textarea" name="annotation"></textarea>
+                <textarea class="textarea" name="annotation" placeholder="Anotação"></textarea>
                 <button type="submit" class="btn">Salvar Anotação</button>
               </form>
             </div>
@@ -111,7 +115,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
               <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML" class="form">
                 <input placeholder="Nome do remédio" class="input" name="remedy-name"/>
                 <input placeholder="Dosagem" class="input" name="remedy-dosage"/>
-                <input placeholder="Quantidade" class="input"name="remedy-quantity"/>
+                <input placeholder="Quantidade" class="input" name="remedy-quantity"/>
                 <button type="submit" class="btn">Salvar Receita</button>
               </form>
             </div>

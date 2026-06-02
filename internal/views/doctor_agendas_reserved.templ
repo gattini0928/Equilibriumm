@@ -14,23 +14,24 @@ templ DoctorReservedAgendasList(data models.PerfilView, p models.DoctorDashboard
 		} else {
 			for _, agenda := range p.AgendasReserved {
 				<div class="schedule-list">
-					<div class="schedule-item">
+					<div class="schedule-item reserved-agendas">
 						<span class="date">
 							<span>{agenda.Date.Format("02/01/2006 15:04")}</span>
 						</span>
 
 						<span>{agenda.PatientName}</span>
 
-						<form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/from-agenda/%d/start", agenda.ID)) }>
-							<button type="submit">Iniciar Consulta</button>
-						</form>
-
-						<form method="POST"
-							hx-post={ templ.URL(fmt.Sprintf("/me/agenda/professional/%d", agenda.ID)) }
-							hx-target="#doctor-reserved-agendas"
-							hx-swap="outerHTML">
-							<button type="submit">Desmarcar Consulta</button>
-						</form>
+						<div class="form-btns">
+							<form method="POST" action={ templ.URL(fmt.Sprintf("/consultations/from-agenda/%d/start", agenda.ID)) }>
+								<button type="submit">Iniciar Consulta</button>
+							</form>
+							<form method="POST"
+								hx-post={ templ.URL(fmt.Sprintf("/me/agenda/professional/%d", agenda.ID)) }
+								hx-target="#doctor-reserved-agendas"
+								hx-swap="outerHTML">
+								<button type="submit" class="delete-btn">Desmarcar Consulta</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			}

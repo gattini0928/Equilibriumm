@@ -13,7 +13,7 @@
 .msg {
     display: flex;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     color: #666;
 }
 
@@ -97,7 +97,6 @@
     font-size: 1.3rem;
 }
 
-/* LINK */
 
 .therapist-link, .psychiatrist-link {
     margin-top: auto;

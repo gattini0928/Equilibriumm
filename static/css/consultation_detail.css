@@ -17,6 +17,9 @@ main {
     h2 {
       color: #222;
     }
+    .section h3 {
+      font-size: 1.4rem !important;
+    }
 
     .info {
       display: flex;

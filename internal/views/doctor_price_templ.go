@@ -41,13 +41,13 @@ func DoctorPriceContainer(p models.DoctorDashboard) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%.2f", p.Perfil.Price))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/profile_price.templ`, Line: 10, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/doctor_price.templ`, Line: 10, Col: 60}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</span><form method=\"POST\" hx-post=\"/me/price\" hx-target=\"#price-container\" hx-swap=\"outerHTML\"><input type=\"number\" step=\"0.01\" name=\"price\" placeholder=\"Preço da Consulta\"> <button type=\"submit\">Atualizar Preço</button></form></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</span><form method=\"POST\" hx-post=\"/me/price\" hx-target=\"#price-container\" hx-swap=\"outerHTML\"><input type=\"number\" step=\"0.01\" name=\"price\" class=\"agenda-input\" placeholder=\"Preço da Consulta\"> <button type=\"submit\">Atualizar Preço</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
