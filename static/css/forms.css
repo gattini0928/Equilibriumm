@@ -10,21 +10,6 @@
     max-width: 300px;
 }
 
-/* ============================================
-   FORMS.CSS - Paleta Equilibrium
-   ============================================
-   #134040 - Header/Primário escuro
-   #95f7b1 - Links/Botões primários
-   #cae456 - Logo/Destaque
-   #0d0f14 - Texto principal
-   #4a5568 - Texto secundário
-   #1a1f2e - Background dark mode
-   ============================================ */
-
-/* ============================================
-   PÁGINA DE FORMULÁRIO
-   ============================================ */
-
 .form-page h2 {
   color: #0d0f14;
   font-size: 24px;
@@ -138,9 +123,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background: #7ee59f;
-  box-shadow: 0 4px 12px rgba(149, 247, 177, 0.25);
-  transform: translateY(-2px);
+  background: #cae456;
 }
 
 button[type="submit"]:active {
@@ -153,60 +136,6 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
   transform: none;
 }
-
-/* ============================================
-   DARK MODE
-   ============================================ */
-
-/* @media (prefers-color-scheme: dark) {
-  .form-page {
-    background: #1a1f2e;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .form-page h2 {
-    color: #95f7b1;
-  }
-
-  .inputs-labels label {
-    color: #95f7b1;
-  }
-
-  .inputs-labels input {
-    background: #0d0f14;
-    color: #95f7b1;
-    border-color: #4a5568;
-  }
-
-  .inputs-labels input::placeholder {
-    color: #4a5568;
-  }
-
-  .inputs-labels input:focus {
-    border-color: #cae456;
-    box-shadow: 0 0 0 3px rgba(202, 228, 86, 0.2);
-  }
-
-  .message {
-    background: rgba(149, 247, 177, 0.1);
-    color: #95f7b1;
-    border-left-color: #cae456;
-  }
-
-  button[type="submit"] {
-    background: #cae456;
-    color: #0d0f14;
-  }
-
-  button[type="submit"]:hover {
-    background: #b8d64a;
-    box-shadow: 0 4px 12px rgba(202, 228, 86, 0.3);
-  }
-} */
-
-/* ============================================
-   RADIO BUTTONS (ROLE OPTIONS)
-   ============================================ */
 
 .role-options {
   margin-bottom: 1.5rem;
@@ -327,80 +256,6 @@ button[type="submit"]:disabled {
   border-color: #95f7b1;
   background: #f9fafb;
 }
-
-/* ============================================
-   DARK MODE - RADIO BUTTONS
-   ============================================ */
-
-/* @media (prefers-color-scheme: dark) {
-  .role-options {
-    background: #0d0f14;
-    border-color: #4a5568;
-  }
-
-  .role-options label {
-    color: #95f7b1;
-  }
-
-  .role-options label:hover {
-    color: #cae456;
-  }
-
-  .role-options input[type="radio"] {
-    background: #1a1f2e;
-    border-color: #4a5568;
-  }
-
-  .role-options input[type="radio"]:hover {
-    border-color: #cae456;
-    box-shadow: 0 0 0 3px rgba(202, 228, 86, 0.15);
-  }
-
-  .role-options input[type="radio"]:checked {
-    border-color: #cae456;
-    background: #cae456;
-    box-shadow: 0 0 0 3px rgba(202, 228, 86, 0.2);
-  }
-
-  .role-options input[type="radio"]:checked::after {
-    background: #0d0f14;
-  }
-
-  .role-options input[type="radio"]:focus {
-    border-color: #95f7b1;
-    box-shadow: 0 0 0 3px rgba(149, 247, 177, 0.2);
-  }
-
-  .inputs-labels input[type="file"] {
-    background: #0d0f14;
-    border-color: #4a5568;
-    color: #95f7b1;
-  }
-
-  .inputs-labels input[type="file"]::file-selector-button {
-    background: #cae456;
-    color: #0d0f14;
-  }
-
-  .inputs-labels input[type="file"]::file-selector-button:hover {
-    background: #b8d64a;
-    box-shadow: 0 2px 6px rgba(202, 228, 86, 0.3);
-  }
-
-  .inputs-labels input[type="file"]:hover {
-    border-color: #cae456;
-    background: #151a28;
-  }
-
-  .inputs-labels input[type="file"]:focus {
-    border-color: #cae456;
-    box-shadow: 0 0 0 3px rgba(202, 228, 86, 0.15);
-  }
-} */
-
-/* ============================================
-   RESPONSIVO
-   ============================================ */
 
 @media (max-width: 600px) {
   .form-page {

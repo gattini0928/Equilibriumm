@@ -56,10 +56,6 @@ templ ConsultationPage(data models.ConsultationRoomView) {
 
   const api = new JitsiMeetExternalAPI(domain, options);
 </script>
-
-    <p>DEBUG consultation ID: {fmt.Sprintf("%d", data.Consultation.ID)}</p>
-    <p>DEBUG user role: {data.UserRole}</p>
-
       <div id="toast"></div>
 
       if data.UserRole == "patient" {

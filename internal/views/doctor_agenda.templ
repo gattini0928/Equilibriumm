@@ -28,7 +28,7 @@ templ DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) {
                             <span>{agenda.Date.Format("02/01/2006 15:04")}</span>
                         </span>
                         <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/me/agenda/%d", agenda.ID)) } hx-target="#agendas-card" hx-swap="outerHTML">
-                            <button type="submit">Deletar</button>
+                            <button type="submit" class="delete-btn">Deletar</button>
                         </form>
                     </div>
                 </div>

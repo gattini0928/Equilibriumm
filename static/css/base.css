@@ -120,3 +120,18 @@ footer {
     border-radius: 0.5rem;
     font-weight: 600;
 }
+
+    button {
+      text-decoration: none;
+      background: #95f7b1;
+      color: #134040;
+
+      padding: 1rem 1.4rem;
+      border-radius: 0.8rem;
+
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #cae456;
+    }

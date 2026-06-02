@@ -92,7 +92,7 @@ func DoctorAgendasCard(data models.PerfilView, p models.DoctorDashboard) templ.C
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\" hx-target=\"#agendas-card\" hx-swap=\"outerHTML\"><button type=\"submit\">Deletar</button></form></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\" hx-target=\"#agendas-card\" hx-swap=\"outerHTML\"><button type=\"submit\" class=\"delete-btn\">Deletar</button></form></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

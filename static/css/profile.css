@@ -1,31 +1,28 @@
 .doctor-profile-page {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
-      max-width: 1400px;
+      max-width: 140rem;
       margin: 0 auto;
     }
 
     .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      border-radius: 1.6rem;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 1.4rem;
+      height: auto;
     }
 
     h2 {
-      font-size: 1.2rem;
+      font-size: 1.8rem;
       color: #222;
     }
 
-    /* ===== DOCTOR ===== */
-
     .doctor img {
-      width: 90px;
-      height: 90px;
+      width: 10rem;
+      height: 10rem;
       border-radius: 50%;
       object-fit: cover;
     }
@@ -33,21 +30,19 @@
     .doctor .infos {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 0.6rem;
     }
 
     .doctor span {
-      color: #444;
-      font-size: 0.9rem;
+      color: #323c4d;
+      font-size: 1.6rem;
     }
 
     .description {
-      font-size: 0.85rem;
-      color: #666;
+      font-size: 1.6rem;
+      color: #323c4d;
       line-height: 1.4;
     }
-
-    /* ===== AGENDA ===== */
 
     .no-agenda {
       display: flex;
@@ -66,7 +61,6 @@
     }
 
     .schedule-item {
-      background: #f7f7f7;
       padding: 12px;
       border-radius: 10px;
 
@@ -75,9 +69,9 @@
       align-items: center;
     }
 
-    .date {
+    .date, .price {
       font-weight: bold;
-      font-size: 0.9rem;
+      font-size: 1.6rem;
     }
 
     .agenda-actions {
@@ -85,17 +79,14 @@
       gap: 8px;
     }
 
-    .agenda-actions a {
-      text-decoration: none;
-      font-size: 0.75rem;
-      padding: 6px 8px;
-      border-radius: 6px;
-      background: #2563eb;
-      color: white;
+    .delete-btn-patient {
+      font-size: 1rem !important;
     }
 
-    .agenda-actions a:last-child {
-      background: #dc2626;
+    .delete-btn:hover, .delete-btn-patient:hover {
+      color: white;
+      background-color: rgb(224, 50, 50) !important;
+
     }
 
     .price {
@@ -104,57 +95,50 @@
       margin-top: 6px;
     }
 
-    /* ===== PATIENTS ===== */
-
     .patient-card {
+      align-self: flex-start;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      background: #f7f7f7;
-      padding: 10px;
-      border-radius: 10px;
+      justify-content: center;
+      flex-direction: column;
+      padding: 1rem;
+      border-radius: 1rem;
+      gap: 2rem;
     }
 
     .patient-left {
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .patient-card {
-        display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      gap: 1rem;
     }
 
     .patient-card img {
-      width: 40px;
-      height: 40px;
+      width: 10rem;
+      height: 10rem;
       border-radius: 50%;
       object-fit: cover;
     }
 
-    .patient-card a {
-      font-size: 0.8rem;
-      text-decoration: none;
-      color: #2563eb;
+    .patient-card a, .consultation-card a {
+        text-decoration: none;
+      background: #95f7b1;
+      color: #134040;
+
+      padding: 1rem 1.4rem;
+      border-radius: 0.8rem;
+
+      transition: 0.2s;
     }
 
-    /* ===== CONSULTATIONS ===== */
-
+    .patient-card a:hover, .consultation-card a:hover {
+      background: #cae456;
+    }
     .consultation-card {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      background: #f7f7f7;
-      padding: 10px;
-      border-radius: 10px;
-    }
-
-    .consultation-card a {
-      font-size: 0.8rem;
-      color: #2563eb;
-      text-decoration: none;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 1rem;
     }
 
     .patient-profile-page {
@@ -173,31 +157,28 @@
     }
 
     .card {
-      background: white;
       border-radius: 16px;
       padding: 16px;
 
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 1.2rem;
 
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
     }
 
     .profile-card img {
-      width: 90px;
-      height: 90px;
+      width: 10rem;
+      height: 10rem;
       border-radius: 50%;
       object-fit: cover;
     }
 
     .profile-card span {
-      color: #444;
-      font-size: 0.9rem;
+      color: #323c4d;
+      font-size: 1.6rem;
     }
 
     .consultation {
-      background: #f7f7f7;
       padding: 10px;
       border-radius: 10px;
 
@@ -206,34 +187,55 @@
       gap: 6px;
     }
 
-    .consultation a {
-      font-size: 0.8rem;
-      color: #2563eb;
-      text-decoration: none;
-      width: fit-content;
-    }
-
     .professional-card img {
-      width: 70px;
-      height: 70px;
+      width: 10rem;
+      height: 10rem;
       border-radius: 50%;
       object-fit: cover;
     }
 
-    .professional-card a {
-      font-size: 0.85rem;
-      color: white;
-      background: #2563eb;
-      text-decoration: none;
-
-      padding: 8px 10px;
-      border-radius: 10px;
-
-      width: fit-content;
+    .professional-card h3 {
+      font-size: 1.8rem;
+      color: #323c4d;
     }
 
-    .professional-card h3 {
-      font-size: 1rem;
-      color: #222;
+    .therapist-link, .psychiatrist-link, .consultation a {
+      text-decoration: none;
+      background: #95f7b1;
+      color: #134040;
+
+      padding: 1rem 1.4rem;
+      border-radius: 0.8rem;
+
+      transition: 0.2s;
+    }
+
+    button:hover, .therapist-link:hover, .psychiatrist-link:hover .consultation a:hover  {
+      background: #cae456;
+    }
+
+    .patient-agendas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .patient-agendas a {
+      font-size: 1.4rem;
+      text-decoration: none;
+      background: #95f7b1;
+      color: #134040;
+      font-weight: bold;
+
+      padding: 1rem 1.4rem;
+      border-radius: 0.8rem;
+
+      transition: 0.2s;
+    }
+
+    
+    .patient-agendas a:hover  {
+      background: #cae456;
     }
 

@@ -13,11 +13,8 @@ templ PatientAgendasList(data models.PerfilView, p models.PatientDashboard) {
 			<span>{data.Messages["reserved_agendas"]}</span>
 		} else {
 			for _, agenda := range p.AgendasReserved {
-				<span>Agenda: {fmt.Sprintf("%d", agenda.ID)}</span>
-				<span>Prof: {fmt.Sprintf("%d", agenda.ProfessionalID)}</span>
-				<span>Consulta: {fmt.Sprintf("%d", agenda.ActiveConsultationID)}</span>
 				<div class="schedule-list">
-					<div class="schedule-item">
+					<div class="schedule-item patient-agendas">
 						<span class="date">
 							<span>{agenda.Date.Format("02/01/2006 15:04")}</span>
 						</span>
@@ -26,11 +23,11 @@ templ PatientAgendasList(data models.PerfilView, p models.PatientDashboard) {
 							hx-post={ templ.URL(fmt.Sprintf("/me/agenda/patient/%d", agenda.ID)) }
 							hx-target="#patient-reserved-agendas"
 							hx-swap="outerHTML">
-							<button type="submit">Desmarcar Consulta</button>
+							<button type="submit" class="delete-btn-patient">Desmarcar Consulta</button>
 						</form>
 						if agenda.ActiveConsultationID != 0 {
 							<a href={ templ.URL(fmt.Sprintf("/consultations/%d", agenda.ActiveConsultationID)) }>
-								Entrar na Consulta
+								Consultar
 							</a>
 						}
 					</div>

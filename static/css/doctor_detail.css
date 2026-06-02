@@ -1,20 +1,17 @@
 .doctor-detail-page {
       width: 100%;
-    margin: 0 auto;
+      margin: 0 auto;
       display: grid;
       grid-template-columns: 320px 1fr;
-      gap: 24px;
+      gap: 2.4rem;
       padding: 2rem;
     }
 
     .card {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
+      border-radius: 1.6rem;
+      padding: 2.4rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
-
-    /* CARD DOUTOR */
 
     .doctor-card {
       display: flex;
@@ -25,8 +22,8 @@
     }
 
     .doctor-card img {
-      width: 140px;
-      height: 140px;
+      width: 14rem;
+      height: 14rem;
       border-radius: 50%;
       object-fit: cover;
     }
@@ -46,16 +43,14 @@
 
     .doctor-info span,
     .doctor-info p {
-      color: #555;
+      color: #323c4d;
       line-height: 1.5;
     }
-
-    /* CARD AGENDA */
 
     .schedule-card {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 2rem;
     }
 
     .schedule-card h2 {
@@ -66,7 +61,7 @@
     .schedule-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 1.4rem;
     }
 
     .schedule-item {
@@ -74,35 +69,34 @@
       justify-content: space-between;
       align-items: center;
 
-      padding: 14px;
-      border-radius: 12px;
-      background: #f7f7f7;
+      padding: 1.4rem;
+      border-radius: 1.2rem;
     }
 
     .date {
       font-weight: bold;
-      color: #333;
+      color: #324d42;
     }
 
     .schedule-item a {
       text-decoration: none;
-      background: #2563eb;
-      color: white;
+      background: #95f7b1;
+      color: #134040;
 
-      padding: 10px 14px;
+      padding: 1rem 1.4rem;
       border-radius: 8px;
 
       transition: 0.2s;
     }
 
     .schedule-item a:hover {
-      background: #1d4ed8;
+      background: #cae456;
     }
 
     .price {
       margin-top: 10px;
 
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: #16a34a;
     }
