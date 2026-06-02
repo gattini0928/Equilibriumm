@@ -208,7 +208,7 @@ func ConsultationPage(data models.ConsultationRoomView) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\" hx-target=\"#toast\" hx-swap=\"innerHTML\" class=\"form\"><input type=\"text\" class=\"input\" name=\"diagnosis\"> <button type=\"submit\" class=\"btn\">Salvar Diagnóstico</button></form></div><a class=\"end-consultation\" href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\" hx-target=\"#toast\" hx-swap=\"innerHTML\" class=\"form\"><input type=\"text\" class=\"input\" name=\"diagnosis\" placeholder=\"Diagnóstico\"> <button type=\"submit\" class=\"btn\">Salvar Diagnóstico</button></form></div><a class=\"end-consultation\" href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

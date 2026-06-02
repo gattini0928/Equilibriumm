@@ -124,7 +124,7 @@ templ ConsultationPage(data models.ConsultationRoomView) {
             <div class="panel">
               <h2>Diagnóstico</h2>
               <form method="POST" hx-post={ templ.URL(fmt.Sprintf("/consultations/%d/save", data.Consultation.ID)) } hx-target="#toast" hx-swap="innerHTML"  class="form">
-                 <input type="text" class="input" name="diagnosis">
+                 <input type="text" class="input" name="diagnosis" placeholder="Diagnóstico">
                 <button type="submit" class="btn">Salvar Diagnóstico</button>
               </form>
             </div>

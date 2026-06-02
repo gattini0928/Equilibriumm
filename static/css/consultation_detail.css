@@ -4,14 +4,12 @@ main {
     }
 
     .card {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      padding: 2rem;
+      border-radius: 1.6rem;
 
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 1.4rem;
     }
 
     h2 {
@@ -24,18 +22,18 @@ main {
     .info {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 0.6rem;
       color: #444;
     }
 
     .section {
       background: #f7f7f7;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 1.2rem;
+      border-radius: 1rem;
 
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 0.6rem;
     }
 
     .section h3 {
