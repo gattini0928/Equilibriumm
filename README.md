@@ -47,9 +47,8 @@ O projeto foi criado com foco em aprendizado, prática de arquitetura web, auten
 git clone https://github.com/seu-usuario/seu-repositorio.git
 cd Equilibriumm
 go mod tidy
+cp .env.example .env
 ```
-
-Depois, configure as variáveis de ambiente(env.example) e o banco de dados PostgreSQL conforme necessário.
 
 ```bash
 make dev
@@ -84,7 +83,7 @@ make dev
 
 ## Status do Projeto
 
-Projeto em desenvolvimento/finalização para fins de estudo e portfólio.
+Projeto concluído para fins de estudo e portfólio.
 
 ## Licença
 
