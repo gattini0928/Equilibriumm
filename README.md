@@ -51,6 +51,7 @@ cp .env.example .env
 ```
 
 ```bash
+make migrate
 make dev
 ```
 
